@@ -34,6 +34,7 @@ const LINKS = {
       { link: "https://verdragonball.online/", desc: "Dragon Ball" },
       { link: "https://cuatro.comunidadmontepinar.eu/", desc: "La que se avecina" },
       { link: "https://anhqv.eu/visualizador/", desc: "Aquí no hay quien viva" },
+      { link: "https://cuatro.comunidadmontepinar.eu/aida/", desc: "Aída" },
       { link: "https://www.tokyvideo.com/es/serie/cosas-de-casa/8", desc: "Cosas de casa" },
       { link: "https://fmhy.net/", desc: "freemediaheckyeah" },
       { link: "https://pstream.mov/", desc: "pstream" },
