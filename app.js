@@ -37,8 +37,8 @@ const LINKS = {
       { link: "https://cuatro.comunidadmontepinar.eu/aida/", desc: "Aída" },
       { link: "https://www.tokyvideo.com/es/serie/cosas-de-casa/8", desc: "Cosas de casa" },
       { link: "https://fmhy.net/", desc: "freemediaheckyeah" },
-      { link: "https://pstream.mov/", desc: "pstream" },
-      { link: "https://www.cineby.app/", desc: "Cineby" },
+      { link: "https://pstream.mov/", desc: "pstream", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
+      { link: "https://www.cineby.app/", desc: "Cineby", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
       { link: "https://pluto.tv/", desc: "PlutoTV" }
     ]
   },
@@ -183,6 +183,17 @@ function renderSections(container, data) {
         const descSpan = el('span', { class: 'desc' }, ' — ' + item.desc);
         li.appendChild(descSpan);
       }
+
+      if (item.tags && item.tags.length > 0) {
+        item.tags.forEach(tag => {
+          const tagSpan = el('span', { 
+            class: 'tag', 
+            style: `color: ${tag.color}; font-size: 0.85em; margin-left: 8px; background-color: ${darkenColor(tag.color, 0.3)}; border: 1px solid ${tag.color};` 
+          }, tag.name);
+          li.appendChild(tagSpan);
+        });
+      }
+
       ul.appendChild(li);
     }
     block.appendChild(ul);
@@ -215,4 +226,21 @@ document.addEventListener('DOMContentLoaded', renderAll);
 // Exportar LINKS si se usa en otros módulos (opcional)
 if (typeof module !== 'undefined') {
   module.exports = { LINKS };
+}
+
+// Función para oscurecer un color hexadecimal
+function darkenColor(color, percent) {
+  // Asegurarnos que el color esté en formato hexadecimal
+  if (color.startsWith('#') && color.length === 7) {
+    let r = parseInt(color.slice(1, 3), 16);
+    let g = parseInt(color.slice(3, 5), 16);
+    let b = parseInt(color.slice(5, 7), 16);
+
+    r = Math.floor(r * (1 - percent));
+    g = Math.floor(g * (1 - percent));
+    b = Math.floor(b * (1 - percent));
+
+    return `#${(1 << 24) | (r << 16) | (g << 8) | b}.toString(16).slice(1)`;
+  }
+  return color; // Si no es un color hexadecimal válido, devolver el original
 }
