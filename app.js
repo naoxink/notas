@@ -188,7 +188,7 @@ function renderSections(container, data) {
         item.tags.forEach(tag => {
           const tagSpan = el('span', { 
             class: 'tag', 
-            style: `color: ${tag.color}; font-size: 0.85em; margin-left: 8px; background-color: ${darkenColor(tag.color, 0.3)}; border: 1px solid ${tag.color};` 
+            style: `color: ${tag.color}; font-size: 0.85em; margin-left: 8px; background-color: ${darkenColor(tag.color, 0.7)}; border: 1px solid ${tag.color};` 
           }, tag.name);
           li.appendChild(tagSpan);
         });
