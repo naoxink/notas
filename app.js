@@ -228,19 +228,26 @@ if (typeof module !== 'undefined') {
   module.exports = { LINKS };
 }
 
-// Función para oscurecer un color hexadecimal
 function darkenColor(color, percent) {
-  // Asegurarnos que el color esté en formato hexadecimal
+  // Asegurarnos de que el color esté en formato hexadecimal y válido
   if (color.startsWith('#') && color.length === 7) {
     let r = parseInt(color.slice(1, 3), 16);
     let g = parseInt(color.slice(3, 5), 16);
     let b = parseInt(color.slice(5, 7), 16);
 
+    // Oscurecer cada componente RGB en función del porcentaje
     r = Math.floor(r * (1 - percent));
     g = Math.floor(g * (1 - percent));
     b = Math.floor(b * (1 - percent));
 
-    return `#${(1 << 24) | (r << 16) | (g << 8) | b}.toString(16).slice(1)`;
+    // Asegurarse de que los valores de RGB estén en el rango [0, 255]
+    r = Math.max(0, Math.min(255, r));
+    g = Math.max(0, Math.min(255, g));
+    b = Math.max(0, Math.min(255, b));
+
+    // Convertir los valores RGB oscurecidos de vuelta a hexadecimal
+    return `#${(1 << 24 | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
   }
-  return color; // Si no es un color hexadecimal válido, devolver el original
+  return color; // Si el color no es hexadecimal, devolverlo tal cual
 }
+
