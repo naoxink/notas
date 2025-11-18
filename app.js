@@ -27,8 +27,8 @@ const LINKS = {
       { link: "http://naoxink.epizy.com/transcriptor/", desc: "Transcriptor griego (tontería)" }
     ]
   },
-  series_online: {
-    label: "Series online",
+  multimedia_online: {
+    label: "Multimedia online",
     links: [
       { link: "https://capitulosos.blogspot.com/p/series-gratis-online.html", desc: "Capitulosos" },
       { link: "https://verdragonball.online/", desc: "Dragon Ball" },
@@ -36,7 +36,7 @@ const LINKS = {
       { link: "https://anhqv.eu/visualizador/", desc: "Aquí no hay quien viva" },
       { link: "https://cuatro.comunidadmontepinar.eu/aida/", desc: "Aída" },
       { link: "https://www.tokyvideo.com/es/serie/cosas-de-casa/8", desc: "Cosas de casa" },
-      { link: "https://fmhy.net/", desc: "freemediaheckyeah" },
+      { link: "https://fmhy.net/", desc: "freemediaheckyeah: índice de utilidades y sitios" },
       { link: "https://pstream.mov/", desc: "pstream", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
       { link: "https://www.cineby.app/", desc: "Cineby", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
       { link: "https://pluto.tv/", desc: "PlutoTV" }
