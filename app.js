@@ -39,6 +39,7 @@ const LINKS = {
       { link: "https://fmhy.net/", desc: "freemediaheckyeah: índice de utilidades y sitios" },
       { link: "https://pstream.mov/", desc: "pstream", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
       { link: "https://www.cineby.app/", desc: "Cineby", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
+      { link: "https://www.bitcine.app/", desc: "BitCine" },
       { link: "https://pluto.tv/", desc: "PlutoTV" }
     ]
   },
