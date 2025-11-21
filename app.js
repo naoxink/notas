@@ -37,9 +37,7 @@ const LINKS = {
       { link: "https://cuatro.comunidadmontepinar.eu/aida/", desc: "Aída" },
       { link: "https://www.tokyvideo.com/es/serie/cosas-de-casa/8", desc: "Cosas de casa" },
       { link: "https://fmhy.net/", desc: "freemediaheckyeah: índice de utilidades y sitios" },
-      { link: "https://pstream.mov/", desc: "pstream", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
-      { link: "https://www.cineby.app/", desc: "Cineby", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
-      { link: "https://www.bitcine.app/", desc: "BitCine" },
+      // { link: "https://www.cineby.app/", desc: "Cineby", tags: [ { color: "#970808", name: "Bloqueo ISP España" } ] },
       { link: "https://pluto.tv/", desc: "PlutoTV" }
     ]
   },
