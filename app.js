@@ -92,11 +92,11 @@ const LINKS = {
         const nextDate = new Date(nextIncentive === 0 ? now.getFullYear() + 1 : now.getFullYear(), nextIncentive, 1);
         return nextDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
       }},
-      { desc: "Ruleta del día", fn: () => {
+      { desc: "Próxima ruleta de día en", fn: () => {
         const now = new Date();
         const dayOfWeek = now.getDay();
         const daysUntilWednesday = (3 - dayOfWeek + 7) % 7 || 7;
-        return `Próxima ruleta: ${daysUntilWednesday} día${daysUntilWednesday !== 1 ? 's' : ''}`;
+        return `${daysUntilWednesday} día${daysUntilWednesday !== 1 ? 's' : ''}`;
       }}
     ]
   }
