@@ -12,8 +12,9 @@ const LINKS = {
   musica: {
     label: "Música",
     links: [
-      { link: "https://open.spotify.com/playlist/7BNaFTLFCkJz0EXcP4Jmo9?si=46333dbe1efc4cd4", desc: "Lista Tungsteno (Spotify)" },
-      { link: "https://open.spotify.com/playlist/5jqP6Y1neQBsUEiO0vXKtw?si=0c8703f052c1433f", desc: "Lista Random (Spotify)" }
+      { link: "https://open.spotify.com/playlist/7BNaFTLFCkJz0EXcP4Jmo9?si=46333dbe1efc4cd4", desc: "Lista Tungsteno", tags: [ { color: '#1ed760', name: 'Spotify' } ] },
+      { link: "https://open.spotify.com/playlist/73ljMKbZA61wO861nAXBEt?si=d13726af623040a2", desc: "Lista Tungsteno II", tags: [ { color: '#1ed760', name: 'Spotify' } ] },
+      { link: "https://open.spotify.com/playlist/5jqP6Y1neQBsUEiO0vXKtw?si=0c8703f052c1433f", desc: "Lista Random", tags: [ { color: '#1ed760', name: 'Spotify' } ] }
     ]
   },
   griego: {
