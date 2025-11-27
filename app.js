@@ -84,7 +84,7 @@ const LINKS = {
         const percent = ((now - start) / (end - start)) * 100;
         return percent.toFixed(2) + '%';
       }},
-      { desc: "Luna", fn: () => {
+      { desc: "Luna iluminada", fn: () => {
         // Algoritmo sencillo basado en la edad lunar respecto a una luna nueva conocida
         const now = new Date();
         const synodic = 29.530588853; // duración del mes sinódico en días
