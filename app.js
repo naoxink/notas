@@ -175,7 +175,7 @@ function renderSections(container, data) {
     const ul = el('ul');
     for (const item of cat.links) {
       // El enlace visible es la URL (clickable). La descripción va después como texto sin enlace.
-      const a = el('a', { href: item.link, target: '_blank', rel: 'noopener noreferrer' }, '[>]');
+      const a = el('a', { href: item.link, target: '_blank', rel: 'noopener noreferrer' }, '[>] ');
       const li = el('li');
       li.appendChild(a);
       if (item.desc) {
