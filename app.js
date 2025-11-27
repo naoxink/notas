@@ -73,6 +73,32 @@ const LINKS = {
       { link: "https://pixlr.com/es/editor/", desc: '\"Photoshop\" online (Pixlr)' },
       { link: "https://www.croxyproxy.com/_es/", desc: "CroxyProxy (proxy web)" }
     ]
+  },
+  calculados: {
+    label: "Calculados",
+    links: [
+      { desc: "Porcentaje del año actual", fn: () => {
+        const now = new Date();
+        const start = new Date(now.getFullYear(), 0, 0);
+        const end = new Date(now.getFullYear() + 1, 0, 0);
+        const percent = ((now - start) / (end - start)) * 100;
+        return percent.toFixed(2) + '%';
+      }},
+      { desc: "Siguiente incentivo", fn: () => {
+        const now = new Date();
+        const month = now.getMonth();
+        const incentiveMonths = [0, 3, 6, 9]; // Enero, Abril, Julio, Octubre
+        const nextIncentive = incentiveMonths.find(m => m > month) ?? incentiveMonths[0];
+        const nextDate = new Date(nextIncentive === 0 ? now.getFullYear() + 1 : now.getFullYear(), nextIncentive, 1);
+        return nextDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+      }}
+      { desc: "Ruleta del día", fn: () => {
+        const now = new Date();
+        const dayOfWeek = now.getDay();
+        const daysUntilWednesday = (3 - dayOfWeek + 7) % 7 || 7;
+        return `Próxima ruleta: ${daysUntilWednesday} día${daysUntilWednesday !== 1 ? 's' : ''}`;
+      }
+    ]
   }
 };
 
@@ -112,7 +138,15 @@ function filterData() {
     const cat = LINKS[key];
     const filteredLinks = cat.links.filter(item => {
       if (!q) return true;
-      const hay = normalize(item.desc) + ' ' + normalize(item.link);
+      let fnResult = '';
+      if (item && item.fn) {
+        try {
+          fnResult = (typeof item.fn === 'function') ? item.fn() : item.fn;
+        } catch (err) {
+          fnResult = '';
+        }
+      }
+      const hay = normalize(item.desc) + ' ' + normalize(item.link) + ' ' + normalize(fnResult);
       return hay.indexOf(q) !== -1;
     });
     if (filteredLinks.length > 0) {
@@ -175,16 +209,42 @@ function renderSections(container, data) {
     block.appendChild(el('h2', {}, cat.label || key));
     const ul = el('ul');
     for (const item of cat.links) {
-      // El enlace visible es la URL (clickable). La descripción va después como texto sin enlace.
-      const a = el('a', { href: item.link, target: '_blank', rel: 'noopener noreferrer' }, '[>] ');
       const li = el('li');
-      li.appendChild(a);
-      if (item.desc) {
-        // separar con un guion largo y un espacio
-        const descSpan = el('span', { class: 'desc' }, item.desc);
-        li.appendChild(descSpan);
+
+      // Si hay un link, mostrar como antes (enlace clicable + descripción)
+      if (item.link) {
+        const a = el('a', { href: item.link, target: '_blank', rel: 'noopener noreferrer' }, '[>] ');
+        li.appendChild(a);
+        if (item.desc) {
+          const descSpan = el('span', { class: 'desc' }, item.desc);
+          li.appendChild(descSpan);
+        }
+
+      // Si no hay link pero sí hay fn, mostrar "desc: resultadoDeFn" (o solo resultado si no hay desc)
+      } else if (item.fn) {
+        let fnResult = '';
+        try {
+          fnResult = (typeof item.fn === 'function') ? item.fn() : item.fn;
+        } catch (err) {
+          fnResult = '';
+        }
+        if (item.desc) {
+          li.appendChild(document.createTextNode(item.desc + ': '));
+        }
+        const resultSpan = el('span', { class: 'fn-result' }, String(fnResult));
+        const linkColor = getLinkColor();
+        if (linkColor) resultSpan.style.color = linkColor;
+        li.appendChild(resultSpan);
+
+      // Fallback: sin link ni fn, mostrar la descripción si existe
+      } else {
+        if (item.desc) {
+          const descSpan = el('span', { class: 'desc' }, item.desc);
+          li.appendChild(descSpan);
+        }
       }
 
+      // Tags (si las hay)
       if (item.tags && item.tags.length > 0) {
         item.tags.forEach(tag => {
           const tagSpan = el('span', { 

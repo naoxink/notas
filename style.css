@@ -4,7 +4,7 @@ body {
     color: #EEE;
     padding: 0 25% 10% 25%;
 }
-a {
+a, .fn-result {
     color: #91ff00;
     text-decoration: none;
     font-family: monospace;
