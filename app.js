@@ -232,8 +232,6 @@ function renderSections(container, data) {
           li.appendChild(document.createTextNode(item.desc + ': '));
         }
         const resultSpan = el('span', { class: 'fn-result' }, String(fnResult));
-        const linkColor = getLinkColor();
-        if (linkColor) resultSpan.style.color = linkColor;
         li.appendChild(resultSpan);
 
       // Fallback: sin link ni fn, mostrar la descripción si existe
