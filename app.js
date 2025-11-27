@@ -84,6 +84,22 @@ const LINKS = {
         const percent = ((now - start) / (end - start)) * 100;
         return percent.toFixed(2) + '%';
       }},
+      { desc: "Luna", fn: () => {
+        // Algoritmo sencillo basado en la edad lunar respecto a una luna nueva conocida
+        const now = new Date();
+        const synodic = 29.530588853; // duración del mes sinódico en días
+        // Fecha de referencia de luna nueva (UTC): 2000-01-06 18:14
+        const knownNewMoon = Date.UTC(200, 0, 6, 18, 14, 0);
+        const diffDays = (now.getTime() - knownNewMoon) / 86400000;
+        let age = diffDays % synodic;
+        if (age < 0) age += synodic;
+        const phaseAngle = 2 * Math.PI * age / synodic;
+        // Fracción iluminada: (1 - cos(phaseAngle)) / 2
+        const illuminated = (1 - Math.cos(phaseAngle)) / 2 * 100;
+        // Dirección: si la fase está entre 0 y pi -> creciente (▲), sino decreciente (▼)
+        const direction = Math.sin(phaseAngle) > 0 ? '▲' : '▼';
+        return illuminated.toFixed(1) + '% ' + direction;
+      }},
       { desc: "Siguiente incentivo", fn: () => {
         const now = new Date();
         const month = now.getMonth();
