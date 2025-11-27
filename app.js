@@ -91,13 +91,13 @@ const LINKS = {
         const nextIncentive = incentiveMonths.find(m => m > month) ?? incentiveMonths[0];
         const nextDate = new Date(nextIncentive === 0 ? now.getFullYear() + 1 : now.getFullYear(), nextIncentive, 1);
         return nextDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
-      }}
+      }},
       { desc: "Ruleta del día", fn: () => {
         const now = new Date();
         const dayOfWeek = now.getDay();
         const daysUntilWednesday = (3 - dayOfWeek + 7) % 7 || 7;
         return `Próxima ruleta: ${daysUntilWednesday} día${daysUntilWednesday !== 1 ? 's' : ''}`;
-      }
+      }}
     ]
   }
 };
