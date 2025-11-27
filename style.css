@@ -15,6 +15,17 @@ ul {
 }
 li {
     margin-bottom: 10px;
+    position: relative;
+    padding-left: 18px;
+}
+li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    color: #EEE;
+    font-size: 1.2em;
+    line-height: 1;
 }
 .index {
     margin-top: 20px;
