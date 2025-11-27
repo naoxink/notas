@@ -40,6 +40,46 @@ const LINKS = {
         const daysUntilWednesday = (3 - dayOfWeek + 7) % 7 || 7;
         return `${daysUntilWednesday} día${daysUntilWednesday !== 1 ? 's' : ''}`;
       }}
+      ,{ desc: "Consejo del día", fn: () => {
+        const tips = [
+          // Básicos
+          'Bebe agua: intenta beber al menos 8 vasos hoy.',
+          'Haz una pausa de 5 minutos cada hora: mueve el cuerpo.',
+          'Prioriza 3 tareas hoy y céntrate en terminarlas.',
+          'Da un paseo corto de 10 minutos para despejar la cabeza.',
+          'Apaga las notificaciones durante 30 minutos y concéntrate.',
+          'Ordena tu bandeja de entrada durante 15 minutos.',
+          'Haz una respiración profunda de 4-4-4 (inhala, mantiene, exhala).',
+          'Apaga la pantalla 1 hora antes de dormir para mejorar el sueño.',
+          'Anota 3 cosas por las que estás agradecido hoy.',
+
+          // Místicos
+          'Mira la luna esta noche y pide algo en silencio.',
+          'Escribe una intención breve antes de dormir.',
+          'Sostén una piedra o moneda y decide una intención por ella.',
+          'Cierra los ojos 2 minutos y visualiza cómo quieres sentirte.',
+          'Haz una pequeña ofrenda simbólica (una nota, una flor) a algo que agradezcas.',
+          'Camina descalzo 1 minuto y siente la conexión con el suelo.',
+
+          // Prácticos
+          'Haz una copia de seguridad rápida de tus archivos más importantes.',
+          'Vacía la carpeta de descargas: guarda lo necesario y borra el resto.',
+          'Actualiza una contraseña débil hoy: usa un gestor si puedes.',
+          'Programa un recordatorio de pago o factura para evitar sorpresas.',
+
+          // Chorras / divertidos
+          'Si encuentras un calcetín suelto, felicítalo por su libertad.',
+          'Habla con una planta 30 segundos: ella te escucha (o no).',
+          'Hoy es buen día para probar un sándwich raro: pepinillo+chocolate.',
+          'Canta la primera línea de una canción al azar (voz alta, con orgullo).',
+          'Ponte calcetines distintos y presume de ello.',
+          'Nombra una nube y dale personalidad: ¿cómo se llama?'
+        ];
+        const now = new Date();
+        const yearStart = new Date(now.getFullYear(), 0, 0);
+        const dayOfYear = Math.floor((now - yearStart) / 86400000);
+        return tips[dayOfYear % tips.length];
+      }}
     ]
   },
   github: {
