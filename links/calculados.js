@@ -68,6 +68,70 @@ const calculadosCategory = {
       const dayOfYear = Math.floor((now - yearStart) / 86400000);
       return tips[dayOfYear % tips.length];
     }}
+    ,{ desc: "Precio luz (península)", fn: (() => {
+      // Cache sencillo para que la interfaz mantenga la función síncrona
+      let _cached = 'cargando...';
+      let _last = 0;
+      const TTL = 10 * 60 * 1000; // 10 minutos
+      const zone = 'peninsula';
+
+      async function fetchPrice() {
+        try {
+          const url = `https://api.preciodelaluz.org/v1/prices?zone=${encodeURIComponent(zone)}`;
+          const res = await fetch(url, { cache: 'no-store' });
+          if (!res.ok) throw new Error('network');
+          const data = await res.json();
+
+          // Normalizar array de entradas (buscar en varios campos comunes)
+          const arr = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : (Array.isArray(data.prices) ? data.prices : []));
+          const now = Date.now();
+          const candidates = arr.map(it => {
+            const tstr = it.datetime || it.timestamp || it.from || it.date || it.start;
+            const t = tstr ? Date.parse(tstr) : (typeof it.time === 'number' ? it.time : NaN);
+            const v = (typeof it.price === 'number') ? it.price : (typeof it.value === 'number' ? it.value : (typeof it.amount === 'number' ? it.amount : (typeof it.valor === 'number' ? it.valor : NaN)));
+            return { t, v, raw: it };
+          }).filter(x => !Number.isNaN(x.t) && !Number.isNaN(x.v));
+
+          // Buscar la entrada que cubre la hora actual (t <= now < t+1h)
+          let found = candidates.find(c => (now >= c.t && now < (c.t + 3600000)));
+          if (!found && candidates.length) {
+            // fallback: la más cercana en el tiempo
+            found = candidates.reduce((a, b) => (Math.abs(a.t - now) < Math.abs(b.t - now) ? a : b));
+          }
+
+          if (found && typeof found.v === 'number') {
+            let v = found.v;
+            let unit = '€/kWh';
+            // Si el valor parece grande (p.ej. > 1), es probable que venga en €/MWh
+            if (v > 1) {
+              v = v / 1000; // convertir a €/kWh
+              unit = '€/kWh (convertido desde €/MWh)';
+            }
+            _cached = `${v.toFixed(4)} ${unit}`;
+          } else {
+            _cached = 'sin datos';
+          }
+        } catch (err) {
+          _cached = 'error';
+        } finally {
+          _last = Date.now();
+          if (typeof window !== 'undefined' && typeof window.renderAll === 'function') window.renderAll();
+        }
+      }
+
+      // Devuelve siempre el valor cacheado; dispara la carga si es viejo
+      return () => {
+        try {
+          if (!_last || (Date.now() - _last) > TTL) {
+            // no await: actualizamos en background y renderAll() refrescará
+            fetchPrice();
+          }
+        } catch (e) {
+          // ignore
+        }
+        return _cached;
+      };
+    })() }
   ]
 };
 
