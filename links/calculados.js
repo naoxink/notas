@@ -74,7 +74,10 @@ const calculadosCategory = {
       const eccentricity = 0.0167;
       const mean = 149597870; // km
       const dist = mean * (1 - eccentricity * Math.cos(2 * Math.PI * day / 365));
-      return dist.toFixed(0) + " km";
+      // Formatear con separadores de miles/millones según locale español
+      const rounded = Math.round(dist);
+      const formatted = rounded.toLocaleString('es-ES');
+      return formatted + " km";
     }},
     { desc: "Hash del día", fn: () => {
       const s = new Date().toISOString().slice(0,10);
