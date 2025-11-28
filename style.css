@@ -45,3 +45,56 @@ li {
         padding-left: 0;
     }
 }
+
+/* Estilos para modales reutilizables (nxCreateModal) */
+.nx-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+}
+
+.nx-modal-box {
+    background: #222;
+    color: #EEE;
+    padding: 18px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 80%;
+    overflow: auto;
+    font-family: monospace;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+.nx-modal-close {
+    float: right;
+    margin-left: 10px;
+    background: transparent;
+    color: #EEE;
+    border: 1px solid #444;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.nx-modal-close:hover { background: rgba(255,255,255,0.03); }
+
+.nx-modal-title { margin: 0 0 8px 0; }
+.nx-modal-body { margin-top: 6px; }
+
+/* Estilos para elementos de logros dentro del modal */
+.nx-ach-locked {
+    color: #9aa0a6;
+    opacity: 0.95;
+}
+.nx-ach-new {
+    color: #91ff00;
+    margin-left: 6px;
+    font-weight: normal;
+}

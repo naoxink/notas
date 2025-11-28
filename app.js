@@ -29,6 +29,40 @@ function el(tag, attrs = {}, ...children) {
   return e;
 }
 
+/**
+ * nxCreateModal(title)
+ * Devuelve { modal, body } donde `body` es un contenedor donde insertar contenido.
+ * Se añade a `window` para uso global.
+ */
+function nxCreateModal(titleText) {
+  const modal = document.createElement('div');
+  modal.className = 'nx-modal';
+
+  const box = document.createElement('div');
+  box.className = 'nx-modal-box';
+
+  const close = document.createElement('button');
+  close.className = 'nx-modal-close';
+  close.textContent = 'Cerrar';
+  close.addEventListener('click', () => { if (modal.parentNode) modal.parentNode.removeChild(modal); });
+
+  const title = document.createElement('h3');
+  title.className = 'nx-modal-title';
+  title.textContent = titleText || '';
+
+  const body = document.createElement('div');
+  body.className = 'nx-modal-body';
+
+  box.appendChild(close);
+  box.appendChild(title);
+  box.appendChild(body);
+  modal.appendChild(box);
+
+  return { modal, body };
+}
+
+if (typeof window !== 'undefined') window.nxCreateModal = nxCreateModal;
+
 // Estado de búsqueda/filtrado
 const state = {
   query: '',
