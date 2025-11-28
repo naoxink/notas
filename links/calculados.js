@@ -82,7 +82,16 @@ const calculadosCategory = {
       async function fetchPrice() {
         try {
           const custom = (typeof window !== 'undefined' && window.PRECIO_LUZ_API_URL) ? window.PRECIO_LUZ_API_URL : null;
-          const url = custom || `https://api.preciodelaluz.org/v1/prices?zone=${encodeURIComponent(zone)}`;
+          // URL por defecto: usar API de datos de REE con rango para hoy (hora a hora)
+          const today = new Date();
+          const pad = n => String(n).padStart(2, '0');
+          const yyyy = today.getFullYear();
+          const mm = pad(today.getMonth() + 1);
+          const dd = pad(today.getDate());
+          const start = `${yyyy}-${mm}-${dd}T00:00`;
+          const end = `${yyyy}-${mm}-${dd}T23:59`;
+          const reeUrl = `https://apidatos.ree.es/es/datos/balance/balance-electrico?start_date=${start}&end_date=${end}&time_trunc=hour`;
+          const url = custom || reeUrl;
           let res = null;
           let usedUrl = url;
           try {
@@ -166,11 +175,17 @@ const calculadosCategory = {
 
           if (found && typeof found.v === 'number') {
             let v = found.v;
-            let unit = '€/kWh';
-            // Si el valor parece grande (p.ej. > 1), es probable que venga en €/MWh
-            if (v > 1) {
-              v = v / 1000; // convertir a €/kWh
-              unit = '€/kWh (convertido desde €/MWh)';
+            // Determinar unidad según la fuente
+            let unit = 'valor';
+            if (usedUrl && usedUrl.includes('apidatos.ree.es')) {
+              unit = 'MW';
+            } else {
+              unit = '€/kWh';
+              // Si el valor parece grande (p.ej. > 1), es probable que venga en €/MWh
+              if (v > 1) {
+                v = v / 1000; // convertir a €/kWh
+                unit = '€/kWh (convertido desde €/MWh)';
+              }
             }
             _cached = `${v.toFixed(4)} ${unit}`;
           } else {
