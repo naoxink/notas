@@ -61,6 +61,57 @@
             }
         },
 
+        {
+            id: "christmas_visit",
+            name: "Navideño",
+            desc: "Has visitado la web el día de Navidad (25 de diciembre).",
+            condition: () => {
+                try {
+                    const now = new Date();
+                    return (now.getMonth() === 11 && now.getDate() === 25);
+                } catch (e) { return false; }
+            }
+        },
+        {
+            id: "newyear_visit",
+            name: "Año nuevo",
+            desc: "Has visitado la web el día de Año Nuevo (1 de enero).",
+            condition: () => {
+                try {
+                    const now = new Date();
+                    return (now.getMonth() === 0 && now.getDate() === 1);
+                } catch (e) { return false; }
+            }
+        },
+        {
+            id: "valentines_visit",
+            name: "San Valentín",
+            desc: "Has visitado la web el día de San Valentín (14 de febrero).",
+            condition: () => {
+                try {
+                    const now = new Date();
+                    return (now.getMonth() === 1 && now.getDate() === 14);
+                } catch (e) { return false; }
+            }
+        },
+        {
+            id: "blue_monday",
+            name: "Blue Monday",
+            desc: "Has visitado la web el Blue Monday (tercer lunes de enero).",
+            condition: () => {
+                try {
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    if (now.getMonth() !== 0) return false; // enero
+                    const d = new Date(year, 0, 1); // 1 de enero
+                    const offset = (1 - d.getDay() + 7) % 7; // días hasta el primer lunes
+                    const firstMondayDate = 1 + offset;
+                    const thirdMondayDate = firstMondayDate + 14;
+                    return now.getDate() === thirdMondayDate;
+                } catch (e) { return false; }
+            }
+        },
+
     ];
 
     // Cargar logros conseguidos
