@@ -168,7 +168,7 @@ const tonteriasVariasCategory = {
       const streak = (window.STREAK_DATA && window.STREAK_DATA.streak) || 0;
       return streak + " día" + (streak !== 1 ? "s" : "");
     }},
-    { desc: "Logros desbloqueados", fn: () => {
+    { desc: "Logros desbloqueados hoy", fn: () => {
       const unlocked = (window.ACHIEVEMENTS_DATA && window.ACHIEVEMENTS_DATA.unlockedThisVisit) || [];
       if (unlocked.length === 0) return "Ninguno hoy";
       return unlocked.map(a => a.name).join(", ");
