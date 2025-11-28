@@ -170,6 +170,35 @@
                 LINKS_DATA.lastClick = new Date().toISOString();
                 window.LINKS_DATA = LINKS_DATA;
                 _saveLinkClicks();
+                // Tras cada click, comprobar si algún logro basado en clicks se desbloquea
+                try {
+                    const unlockDate = new Date().toISOString().slice(0,10);
+                    const newly = [];
+                    for (const ach of ACHIEVEMENTS_LIST) {
+                        // solo logros relacionados con links (prefix 'links_')
+                        if (!ach || !ach.id || typeof ach.condition !== 'function') continue;
+                        if (ach.id.indexOf('links_') !== 0) continue;
+                        const already = !!stored[ach.id];
+                        if (!already && ach.condition()) {
+                            stored[ach.id] = unlockDate;
+                            newly.push(ach);
+                        }
+                    }
+                    if (newly.length) {
+                        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(stored)); } catch (e) {}
+                        // actualizar objeto expuesto
+                        window.ACHIEVEMENTS_DATA = window.ACHIEVEMENTS_DATA || {};
+                        window.ACHIEVEMENTS_DATA.unlocked = stored;
+                        window.ACHIEVEMENTS_DATA.unlockedThisVisit = window.ACHIEVEMENTS_DATA.unlockedThisVisit || [];
+                        for (const ach of newly) {
+                            window.ACHIEVEMENTS_DATA.unlockedThisVisit.push(ach);
+                            if (typeof window.showToast === 'function') {
+                                try { window.showToast(ach); } catch (e) {}
+                            }
+                            try { document.dispatchEvent(new CustomEvent('nx:achievement', { detail: ach })); } catch (e) {}
+                        }
+                    }
+                } catch (e) {}
             } catch (e) { }
         }, true);
     }
