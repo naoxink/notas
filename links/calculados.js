@@ -79,8 +79,20 @@ const calculadosCategory = {
     { desc: "Hash del día", fn: () => {
       const s = new Date().toISOString().slice(0,10);
       let h = 0;
-      for (let c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-      return h.toString(16);
+      for (let c of s) h = (h * 167 + c.charCodeAt(0)) >>> 0;
+
+      const chars = [];
+      for (let i = 33; i <= 126; i++) chars.push(String.fromCharCode(i)); // ASCII visible
+
+      let out = "";
+      let x = h;
+
+      for (let i = 0; i < 10; i++) {
+        out += chars[x % chars.length];
+        x = Math.floor(x / chars.length);
+      }
+
+      return out;
     }},
     { desc: "Nivel de ‘lunes’", fn: () => {
       const dow = new Date().getDay();
