@@ -73,7 +73,7 @@ function renderSearchControls(container) {
   const h2 = el('h2', {}, 'Índice');
   const controls = el('div', { class: 'controls' });
 
-  const input = el('input', { type: 'search', placeholder: 'Buscar (texto o URL)' });
+  const input = el('input', { id: 'search-input', type: 'search', placeholder: 'Buscar (texto o URL)' });
   input.value = state.query;
   input.addEventListener('input', (e) => {
     state.query = e.target.value;
@@ -178,6 +178,21 @@ function renderAll() {
   const sections = document.getElementById('sections');
   if (!toc || !sections) return;
 
+  // Guardar estado de foco/selección del input de búsqueda para restaurarlo.
+  let searchState = null;
+  try {
+    const active = document.activeElement;
+    if (active && active.tagName === 'INPUT' && active.type === 'search') {
+      searchState = {
+        value: active.value,
+        selectionStart: active.selectionStart,
+        selectionEnd: active.selectionEnd
+      };
+    }
+  } catch (err) {
+    searchState = null;
+  }
+
   // limpiar
   toc.innerHTML = '';
   sections.innerHTML = '';
@@ -191,6 +206,20 @@ function renderAll() {
 
   // render sections
   renderSections(sections, filtered);
+
+  // Restaurar foco y selección en el input de búsqueda si procede
+  if (searchState) {
+    const newInput = document.getElementById('search-input');
+    if (newInput) {
+      newInput.focus();
+      try {
+        // restaurar selección/caret
+        newInput.setSelectionRange(searchState.selectionStart, searchState.selectionEnd);
+      } catch (e) {
+        // ignore si no es soportado
+      }
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', renderAll);
