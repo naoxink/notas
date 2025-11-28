@@ -98,3 +98,32 @@ li {
     margin-left: 6px;
     font-weight: normal;
 }
+
+/* Toasts (integrados con estilo de modal) */
+.nx-toast-container {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10000;
+    pointer-events: none;
+}
+.nx-toast {
+    pointer-events: auto;
+    background: #222;
+    color: #EEE;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    padding: 10px 14px;
+    max-width: 320px;
+    font-family: monospace;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.995);
+    transition: opacity 280ms ease, transform 280ms ease;
+}
+.nx-toast-enter { opacity: 1; transform: translateY(0) scale(1); }
+.nx-toast-leave { opacity: 0; transform: translateY(-6px) scale(0.995); }
+.nx-toast-title { font-weight: bold; margin-bottom: 4px; font-size: 13px; }
+.nx-toast-message { font-size: 13px; color: #cfd6d8; }

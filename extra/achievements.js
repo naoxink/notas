@@ -112,7 +112,67 @@
             }
         },
 
+            // Logros por clicks en enlaces
+            {
+                id: "links_1",
+                name: "Explorador",
+                desc: "Has hecho 1 click en enlaces de la página.",
+                condition: () => (window.LINKS_DATA?.clicks || 0) >= 1
+            },
+            {
+                id: "links_5",
+                name: "Curioso",
+                desc: "Has hecho 5 clicks en enlaces de la página.",
+                condition: () => (window.LINKS_DATA?.clicks || 0) >= 5
+            },
+            {
+                id: "links_10",
+                name: "Navegante",
+                desc: "Has hecho 10 clicks en enlaces de la página.",
+                condition: () => (window.LINKS_DATA?.clicks || 0) >= 10
+            },
+            {
+                id: "links_25",
+                name: "Enlazador",
+                desc: "Has usado 25 links de esta página.",
+                condition: () => (window.LINKS_DATA?.clicks || 0) >= 25
+            },
+            {
+                id: "links_50",
+                name: "Manual del explorador",
+                desc: "Has usado 50 links de esta página.",
+                condition: () => (window.LINKS_DATA?.clicks || 0) >= 50
+            },
+            {
+                id: "links_100",
+                name: "Fanático de enlaces",
+                desc: "Has usado 100 links de esta página.",
+                condition: () => (window.LINKS_DATA?.clicks || 0) >= 100
+            },
+
     ];
+
+    // Seguimiento de clicks en enlaces (persistente en localStorage)
+    const LINKS_STORAGE_KEY = "nx_link_clicks";
+    let _linksStored = {};
+    try { _linksStored = JSON.parse(localStorage.getItem(LINKS_STORAGE_KEY)) || {}; } catch (e) { _linksStored = {}; }
+    const LINKS_DATA = { clicks: _linksStored.clicks || 0, lastClick: _linksStored.lastClick || null };
+    window.LINKS_DATA = LINKS_DATA;
+    function _saveLinkClicks() {
+        try { localStorage.setItem(LINKS_STORAGE_KEY, JSON.stringify({ clicks: LINKS_DATA.clicks, lastClick: LINKS_DATA.lastClick })); } catch (e) {}
+    }
+    if (typeof document !== 'undefined') {
+        document.addEventListener('click', function (e) {
+            try {
+                const a = e.target && e.target.closest && e.target.closest('a');
+                if (!a) return;
+                LINKS_DATA.clicks = (LINKS_DATA.clicks || 0) + 1;
+                LINKS_DATA.lastClick = new Date().toISOString();
+                window.LINKS_DATA = LINKS_DATA;
+                _saveLinkClicks();
+            } catch (e) { }
+        }, true);
+    }
 
     // Cargar logros conseguidos
     let stored = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
@@ -140,6 +200,15 @@
 
     // Guardar en localStorage (map id -> fecha ISO o true en versiones antiguas)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+
+    // Si existe `window.showToast`, usarlo para notificar logros desbloqueados
+    try {
+        if (typeof window !== 'undefined' && typeof window.showToast === 'function') {
+            for (const ach of unlockedThisVisit) {
+                try { window.showToast(ach); } catch (e) {}
+            }
+        }
+    } catch (e) {}
 
     // Exponer globalmente
     window.ACHIEVEMENTS_DATA = {

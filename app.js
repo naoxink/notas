@@ -63,6 +63,57 @@ function nxCreateModal(titleText) {
 
 if (typeof window !== 'undefined') window.nxCreateModal = nxCreateModal;
 
+// Small global toast helper to show short notifications across the site
+function showToast(payload) {
+  if (typeof document === 'undefined') return;
+  try {
+    const title = (payload && payload.name) || (payload && payload.title) || '';
+    const message = (payload && payload.desc) || (payload && payload.message) || (typeof payload === 'string' ? payload : '');
+
+    let container = document.getElementById('nx-toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'nx-toast-container';
+      container.className = 'nx-toast-container';
+      document.body.appendChild(container);
+    }
+
+    const t = document.createElement('div');
+    t.className = 'nx-toast';
+    const inner = document.createElement('div');
+    inner.className = 'nx-toast-inner';
+    if (title) {
+      const h = document.createElement('div');
+      h.className = 'nx-toast-title';
+      h.textContent = title;
+      inner.appendChild(h);
+    }
+    if (message) {
+      const p = document.createElement('div');
+      p.className = 'nx-toast-message';
+      p.textContent = message;
+      inner.appendChild(p);
+    }
+    t.appendChild(inner);
+    container.appendChild(t);
+
+    // trigger animation
+    requestAnimationFrame(() => { t.classList.add('nx-toast-enter'); });
+
+    // remove after timeout
+    const REMOVE_DELAY = 3500;
+    setTimeout(() => {
+      t.classList.remove('nx-toast-enter');
+      t.classList.add('nx-toast-leave');
+      setTimeout(() => { try { t.remove(); } catch (e) {} }, 300);
+    }, REMOVE_DELAY);
+
+    return t;
+  } catch (e) { return null; }
+}
+
+if (typeof window !== 'undefined') window.showToast = showToast;
+
 // Estado de búsqueda/filtrado
 const state = {
   query: '',
