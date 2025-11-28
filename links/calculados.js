@@ -90,7 +90,8 @@ const calculadosCategory = {
           const dd = pad(today.getDate());
           const start = `${yyyy}-${mm}-${dd}T00:00`;
           const end = `${yyyy}-${mm}-${dd}T23:59`;
-          const reeUrl = `https://apidatos.ree.es/es/datos/balance/balance-electrico?start_date=${start}&end_date=${end}&time_trunc=hour`;
+          // REE: usar agregación por día; construir start/end con horas 00:00 - 23:59
+          const reeUrl = `https://apidatos.ree.es/es/datos/balance/balance-electrico?start_date=${start}&end_date=${end}&time_trunc=day`;
           const url = custom || reeUrl;
           let res = null;
           let usedUrl = url;
