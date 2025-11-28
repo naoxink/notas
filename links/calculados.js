@@ -110,9 +110,9 @@ const calculadosCategory = {
     }},
     { desc: "Productividad", fn: () => {
       const hour = new Date().getHours();
-      if (hour < 9) return "🛌 Esperando empezar";
+      if (hour < 7) return "🛌 Esperando empezar";
       if (hour < 12) return "☕ Preparando la productividad";
-      if (hour < 17) return "📝 Haciendo como que trabajo";
+      if (hour < 15) return "📝 Haciendo como que trabajo";
       return "💀 Defunción laboral";
     }},
     { desc: "Segundos para el finde", fn: () => {
