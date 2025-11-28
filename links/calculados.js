@@ -127,9 +127,11 @@ const calculadosCategory = {
       if (hour < 15) return "📝 Haciendo como que trabajo";
       return "💀 Defunción laboral";
     }},
-    { desc: "Segundos para el finde", fn: (() => {
+    {
+      desc: "Segundos para el finde",
+      fn: (() => {
 
-        let installed = false;   // evitar instalar el timer más de una vez
+        let installed = false;
 
         function calculate() {
           const now = new Date();
@@ -140,41 +142,38 @@ const calculadosCategory = {
           return Math.floor((weekendStart - now) / 1000) + "s";
         }
 
-        // Esto es lo que tu app llama
         return function() {
 
-          // Instalación del auto-update solo la primera vez
           if (!installed) {
             installed = true;
 
-            // Esperamos al siguiente tick para asegurar que el DOM ya está pintado
             setTimeout(() => {
-              const allLis = document.querySelectorAll("li");
-              let targetSpan = null;
 
-              allLis.forEach(li => {
-                if (li.textContent.trim().startsWith("Segundos para el finde")) {
-                  targetSpan = li.querySelector(".fn-result");
-                }
-              });
-
-              if (!targetSpan) return;
-
-              // Iniciar actualizador permanente
               setInterval(() => {
-                targetSpan.textContent = calculate();
+                // Buscar siempre el span
+                const allLis = document.querySelectorAll("li");
+                let targetSpan = null;
+
+                allLis.forEach(li => {
+                  if (li.textContent.trim().startsWith("Segundos para el finde")) {
+                    targetSpan = li.querySelector(".fn-result");
+                  }
+                });
+
+                if (targetSpan) {
+                  targetSpan.textContent = calculate();
+                }
+
               }, 1000);
 
             }, 0);
           }
 
-          // Valor inicial
           return calculate();
         };
+
       })()
     }
-
-
   ]
 };
 
