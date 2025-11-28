@@ -40,6 +40,27 @@
             desc: "30 días seguidos visitando la página.",
             condition: () => (window.STREAK_DATA?.streak || 0) >= 30
         },
+        {
+            id: "visit_saturday",
+            name: "Sábado explorador",
+            desc: "Has visitado la web un sábado.",
+            condition: () => {
+                try {
+                    return (new Date().getDay() === 6);
+                } catch (e) { return false; }
+            }
+        },
+        {
+            id: "visit_sunday",
+            name: "Dominguero",
+            desc: "Has visitado la web un domingo.",
+            condition: () => {
+                try {
+                    return (new Date().getDay() === 0);
+                } catch (e) { return false; }
+            }
+        },
+
     ];
 
     // Cargar logros conseguidos
