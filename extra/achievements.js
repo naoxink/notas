@@ -117,18 +117,28 @@
     // Cargar logros conseguidos
     let stored = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
 
-    let unlockedThisVisit = [];
+    // Fecha en formato YYYY-MM-DD para marcar desbloqueos por día
+    const today = new Date().toISOString().slice(0,10);
 
-    // Evaluar condiciones
+    // Reconstruir los logros desbloqueados en esta visita (si ya hay marcas con fecha de hoy)
+    let unlockedThisVisit = [];
     for (const ach of ACHIEVEMENTS_LIST) {
-        const already = stored[ach.id] === true;
-        if (!already && ach.condition()) {
-            stored[ach.id] = true;
+        const val = stored[ach.id];
+        if (typeof val === 'string' && val === today) {
             unlockedThisVisit.push(ach);
         }
     }
 
-    // Guardar en localStorage
+    // Evaluar condiciones y marcar nuevos desbloqueos con la fecha de hoy
+    for (const ach of ACHIEVEMENTS_LIST) {
+        const already = !!stored[ach.id]; // compatible con boolean true o string fecha
+        if (!already && ach.condition()) {
+            stored[ach.id] = today;
+            unlockedThisVisit.push(ach);
+        }
+    }
+
+    // Guardar en localStorage (map id -> fecha ISO o true en versiones antiguas)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
 
     // Exponer globalmente
