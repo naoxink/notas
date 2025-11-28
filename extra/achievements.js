@@ -8,7 +8,10 @@
             id: "first_visit",
             name: "¡Primera visita!",
             desc: "Has visitado la página por primera vez.",
-            condition: () => true
+            condition: () => {
+                const s = window.STREAK_DATA;
+                return !!s?.lastVisit && s.streak >= 1;
+            }
         },
         {
             id: "three_day_streak",
@@ -30,7 +33,13 @@
                 if (!window.STREAK_DATA) return false;
                 return window.STREAK_DATA.streak === 1 && window.STREAK_DATA.isNewDay;
             }
-        }
+        },
+        {
+            id: "month_streak",
+            name: "Un mes completo",
+            desc: "30 días seguidos visitando la página.",
+            condition: () => (window.STREAK_DATA?.streak || 0) >= 30
+        },
     ];
 
     // Cargar logros conseguidos
