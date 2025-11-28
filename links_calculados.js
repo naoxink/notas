@@ -75,7 +75,8 @@ const calculadosCategory = {
 // si no, hacer el merge directo en window.LINKS y forzar re-render si es posible.
 if (typeof window !== 'undefined') {
   if (typeof window.registerLinks === 'function') {
-    window.registerLinks({ calculados: calculadosCategory });
+    // registrar al inicio para que aparezca primero
+    window.registerLinks({ calculados: calculadosCategory }, { position: 'start' });
   } else {
     window.LINKS = Object.assign(window.LINKS || {}, { calculados: calculadosCategory });
     if (typeof window.renderAll === 'function') window.renderAll();

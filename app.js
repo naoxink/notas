@@ -82,6 +82,9 @@ if (typeof window !== 'undefined') {
   window.LINKS = Object.assign(window.LINKS || {}, LINKS);
   // Mantener la referencia local `LINKS` sincronizada con `window.LINKS`
   LINKS = window.LINKS;
+  // Mantener un array con el orden de las claves para poder insertar
+  // categorías en posiciones concretas.
+  window.LINKS_ORDER = window.LINKS_ORDER || Object.keys(window.LINKS);
 }
 
 // Helper para crear elementos con atributos y children
@@ -114,8 +117,9 @@ function filterData() {
   const q = normalize(state.query);
   const onlyCat = state.category;
   const result = {};
+  const order = (typeof window !== 'undefined' && Array.isArray(window.LINKS_ORDER)) ? window.LINKS_ORDER : Object.keys(LINKS);
 
-  for (const key of Object.keys(LINKS)) {
+  for (const key of order) {
     if (onlyCat !== 'all' && key !== onlyCat) continue;
     const cat = LINKS[key];
     const filteredLinks = cat.links.filter(item => {
@@ -152,7 +156,8 @@ function renderSearchControls(container) {
 
   const select = el('select');
   select.appendChild(el('option', { value: 'all' }, 'Todas las categorías'));
-  for (const key of Object.keys(LINKS)) {
+  const orderForSelect = (typeof window !== 'undefined' && Array.isArray(window.LINKS_ORDER)) ? window.LINKS_ORDER : Object.keys(LINKS);
+  for (const key of orderForSelect) {
     const opt = el('option', { value: key }, LINKS[key].label || key);
     if (state.category === key) opt.selected = true;
     select.appendChild(opt);
@@ -273,14 +278,44 @@ if (typeof module !== 'undefined') {
 // de forma centralizada y forzar re-render cuando sea necesario.
 if (typeof window !== 'undefined') {
   window.renderAll = renderAll;
-  window.registerLinks = function(newLinks) {
+  /**
+   * registerLinks(newLinks, opts)
+   * - newLinks: object map key -> { label, links }
+   * - opts: { position: 'start'|'end'|'index', index: number, before: key, after: key }
+   */
+  window.registerLinks = function(newLinks, opts = {}) {
     window.LINKS = Object.assign(window.LINKS || {}, newLinks || {});
-    // mantener la variable local en sync para que el render use la versión actual
+    // asegurar orden
+    window.LINKS_ORDER = window.LINKS_ORDER || [];
+
+    const incomingKeys = Object.keys(newLinks || {});
+    incomingKeys.forEach(k => {
+      if (window.LINKS_ORDER.indexOf(k) !== -1) return; // ya existe
+      // determinar posición
+      if (opts.position === 'start') {
+        window.LINKS_ORDER.unshift(k);
+      } else if (typeof opts.index === 'number') {
+        const idx = Math.max(0, Math.min(opts.index, window.LINKS_ORDER.length));
+        window.LINKS_ORDER.splice(idx, 0, k);
+      } else if (opts.before && window.LINKS_ORDER.indexOf(opts.before) !== -1) {
+        const idx = window.LINKS_ORDER.indexOf(opts.before);
+        window.LINKS_ORDER.splice(idx, 0, k);
+      } else if (opts.after && window.LINKS_ORDER.indexOf(opts.after) !== -1) {
+        const idx = window.LINKS_ORDER.indexOf(opts.after) + 1;
+        window.LINKS_ORDER.splice(idx, 0, k);
+      } else {
+        // por defecto al final
+        window.LINKS_ORDER.push(k);
+      }
+    });
+
+    // sincronizar variable local
     LINKS = window.LINKS;
     if (typeof window.renderAll === 'function') window.renderAll();
   };
   // helper para obtener enlaces desde consola o extensiones
   window.getLinks = function() { return window.LINKS; };
+  window.getLinksOrder = function() { return window.LINKS_ORDER; };
 }
 
 function darkenColor(color, percent) {
