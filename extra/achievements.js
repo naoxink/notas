@@ -149,6 +149,46 @@
                 desc: "Has usado 100 links de esta página.",
                 condition: () => (window.LINKS_DATA?.clicks || 0) >= 100
             },
+            {
+                id: "links_return_7days",
+                name: "Regreso después de la semana",
+                desc: "Has hecho click en un enlace tras más de 7 días sin clicks.",
+                condition: () => {
+                    try {
+                        const h = window.LINKS_DATA?.history || [];
+                        if (h.length < 2) return false;
+                        const last = Date.parse(h[h.length - 1]);
+                        const prev = Date.parse(h[h.length - 2]);
+                        return (last - prev) >= (7 * 24 * 60 * 60 * 1000);
+                    } catch (e) { return false; }
+                }
+            },
+            {
+                id: "links_spree_10_5m",
+                name: "Racha intensa",
+                desc: "Has hecho 10 clicks en 5 minutos.",
+                condition: () => {
+                    try {
+                        const h = window.LINKS_DATA?.history || [];
+                        const now = Date.now();
+                        const cutoff = now - (5 * 60 * 1000);
+                        return h.filter(ts => Date.parse(ts) >= cutoff).length >= 10;
+                    } catch (e) { return false; }
+                }
+            },
+            {
+                id: "links_spree_20_1h",
+                name: "Frenesí de enlaces",
+                desc: "Has hecho 20 clicks en 1 hora.",
+                condition: () => {
+                    try {
+                        const h = window.LINKS_DATA?.history || [];
+                        const now = Date.now();
+                        const cutoff = now - (60 * 60 * 1000);
+                        return h.filter(ts => Date.parse(ts) >= cutoff).length >= 20;
+                    } catch (e) { return false; }
+                }
+            },
 
     ];
 
@@ -156,20 +196,27 @@
     const LINKS_STORAGE_KEY = "nx_link_clicks";
     let _linksStored = {};
     try { _linksStored = JSON.parse(localStorage.getItem(LINKS_STORAGE_KEY)) || {}; } catch (e) { _linksStored = {}; }
-    const LINKS_DATA = { clicks: _linksStored.clicks || 0, lastClick: _linksStored.lastClick || null };
+    const LINKS_DATA = { clicks: _linksStored.clicks || 0, lastClick: _linksStored.lastClick || null, history: Array.isArray(_linksStored.history) ? _linksStored.history.slice(-500) : [] };
     window.LINKS_DATA = LINKS_DATA;
     function _saveLinkClicks() {
-        try { localStorage.setItem(LINKS_STORAGE_KEY, JSON.stringify({ clicks: LINKS_DATA.clicks, lastClick: LINKS_DATA.lastClick })); } catch (e) {}
+        try { localStorage.setItem(LINKS_STORAGE_KEY, JSON.stringify({ clicks: LINKS_DATA.clicks, lastClick: LINKS_DATA.lastClick, history: LINKS_DATA.history })); } catch (e) {}
     }
     if (typeof document !== 'undefined') {
         document.addEventListener('click', function (e) {
             try {
                 const a = e.target && e.target.closest && e.target.closest('a');
                 if (!a) return;
-                LINKS_DATA.clicks = (LINKS_DATA.clicks || 0) + 1;
-                LINKS_DATA.lastClick = new Date().toISOString();
-                window.LINKS_DATA = LINKS_DATA;
-                _saveLinkClicks();
+                // registrar timestamp en el historial (mantener límite)
+                try {
+                    const nowISO = new Date().toISOString();
+                    LINKS_DATA.history = LINKS_DATA.history || [];
+                    LINKS_DATA.history.push(nowISO);
+                    if (LINKS_DATA.history.length > 500) LINKS_DATA.history.splice(0, LINKS_DATA.history.length - 500);
+                    LINKS_DATA.clicks = (LINKS_DATA.clicks || 0) + 1;
+                    LINKS_DATA.lastClick = nowISO;
+                    window.LINKS_DATA = LINKS_DATA;
+                    _saveLinkClicks();
+                } catch (e) {}
                 // Tras cada click, comprobar si algún logro basado en clicks se desbloquea
                 try {
                     const unlockDate = new Date().toISOString().slice(0,10);
