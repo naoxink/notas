@@ -1,5 +1,7 @@
 // Lista de scripts (relativos) que cargarán las secciones en orden.
 window.LINKS_SOURCES = [
+  'extra/streak.js',
+  'extra/achievements.js',
   'links/calculados.js',
   'links/github.js',
   'links/musica.js',
