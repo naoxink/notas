@@ -73,11 +73,16 @@ const calculadosCategory = {
       let _cached = 'cargando...';
       let _last = 0;
       const TTL = 10 * 60 * 1000; // 10 minutos
-      const zone = 'peninsula';
+      const zone = (typeof window !== 'undefined' && window.PRECIO_LUZ_ZONE) ? window.PRECIO_LUZ_ZONE : 'peninsula';
+      // Si quieres usar otra API o un proxy (p. ej. por problemas de DNS/CORS),
+      // define `window.PRECIO_LUZ_API_URL` antes de cargar los scripts.
+      // Debe aceptar la misma consulta o devolver un array de objetos con
+      // campos de tiempo y precio.
 
       async function fetchPrice() {
         try {
-          const url = `https://api.preciodelaluz.org/v1/prices?zone=${encodeURIComponent(zone)}`;
+          const custom = (typeof window !== 'undefined' && window.PRECIO_LUZ_API_URL) ? window.PRECIO_LUZ_API_URL : null;
+          const url = custom || `https://api.preciodelaluz.org/v1/prices?zone=${encodeURIComponent(zone)}`;
           const res = await fetch(url, { cache: 'no-store' });
           if (!res.ok) throw new Error('network');
           const data = await res.json();
@@ -112,7 +117,13 @@ const calculadosCategory = {
             _cached = 'sin datos';
           }
         } catch (err) {
-          _cached = 'error';
+          // Guardar mensaje de error para depuración (p. ej. DNS failures)
+          try {
+            const msg = (err && err.message) ? err.message : String(err);
+            _cached = `error: ${msg}`;
+          } catch (e) {
+            _cached = 'error';
+          }
         } finally {
           _last = Date.now();
           if (typeof window !== 'undefined' && typeof window.renderAll === 'function') window.renderAll();
