@@ -7,5 +7,6 @@ window.LINKS_SOURCES = [
   'links/multimedia_online.js',
   'links/guild_wars_2.js',
   'links/ia.js',
-  'links/otros.js'
+  'links/otros.js',
+  'links/tonterias_varias.js'
 ];
