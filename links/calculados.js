@@ -83,19 +83,79 @@ const calculadosCategory = {
         try {
           const custom = (typeof window !== 'undefined' && window.PRECIO_LUZ_API_URL) ? window.PRECIO_LUZ_API_URL : null;
           const url = custom || `https://api.preciodelaluz.org/v1/prices?zone=${encodeURIComponent(zone)}`;
-          const res = await fetch(url, { cache: 'no-store' });
-          if (!res.ok) throw new Error('network');
+          let res = null;
+          let usedUrl = url;
+          try {
+            res = await fetch(usedUrl, { cache: 'no-store' });
+            if (!res.ok) throw new Error('network status ' + res.status);
+          } catch (errFetch) {
+            // Si no se proporcionó una URL personalizada, intentar un proxy CORS público
+            if (!custom && !usedUrl.includes('allorigins')) {
+              const proxy = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(usedUrl);
+              try {
+                res = await fetch(proxy, { cache: 'no-store' });
+                usedUrl = proxy;
+                if (!res.ok) throw new Error('proxy status ' + res.status);
+              } catch (errProxy) {
+                // rethrow el primer error para llegar al catch externo y mostrar info
+                throw errFetch;
+              }
+            } else {
+              throw errFetch;
+            }
+          }
           const data = await res.json();
 
-          // Normalizar array de entradas (buscar en varios campos comunes)
-          const arr = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : (Array.isArray(data.prices) ? data.prices : []));
+          // Extraer entradas (compatible con apidatos.ree.es y otras APIs)
+          function extractEntries(obj) {
+            const out = [];
+            function walk(o) {
+              if (!o || typeof o !== 'object') return;
+              if (Array.isArray(o)) {
+                for (const it of o) walk(it);
+                return;
+              }
+              // Si tiene un array `values` con objetos { value, datetime }
+              if (Array.isArray(o.values) && o.values.length > 0) {
+                for (const v of o.values) {
+                  const tstr = v.datetime || v.date || v.from || v.start || v.timestamp;
+                  const t = tstr ? Date.parse(tstr) : (typeof v.time === 'number' ? v.time : NaN);
+                  const val = (typeof v.value === 'number') ? v.value : (typeof v.price === 'number' ? v.price : (typeof v.amount === 'number' ? v.amount : (typeof v.valor === 'number' ? v.valor : NaN)));
+                  if (!Number.isNaN(t) && !Number.isNaN(val)) out.push({ t, v: val, raw: v });
+                }
+              }
+
+              // Si el objeto tiene value/price directamente con fecha
+              if ((typeof o.value === 'number' || typeof o.price === 'number' || typeof o.amount === 'number') && (o.datetime || o.date || o.timestamp || o.from || o.start)) {
+                const tstr = o.datetime || o.date || o.timestamp || o.from || o.start;
+                const t = tstr ? Date.parse(tstr) : NaN;
+                const val = typeof o.value === 'number' ? o.value : (typeof o.price === 'number' ? o.price : (typeof o.amount === 'number' ? o.amount : NaN));
+                if (!Number.isNaN(t) && !Number.isNaN(val)) out.push({ t, v: val, raw: o });
+              }
+
+              // Recorrer propiedades para encontrar estructuras anidadas
+              for (const k of Object.keys(o)) {
+                if (k === 'values') continue;
+                try { walk(o[k]); } catch (e) { /* ignore */ }
+              }
+            }
+            walk(obj);
+            return out;
+          }
+
           const now = Date.now();
-          const candidates = arr.map(it => {
-            const tstr = it.datetime || it.timestamp || it.from || it.date || it.start;
-            const t = tstr ? Date.parse(tstr) : (typeof it.time === 'number' ? it.time : NaN);
-            const v = (typeof it.price === 'number') ? it.price : (typeof it.value === 'number' ? it.value : (typeof it.amount === 'number' ? it.amount : (typeof it.valor === 'number' ? it.valor : NaN)));
-            return { t, v, raw: it };
-          }).filter(x => !Number.isNaN(x.t) && !Number.isNaN(x.v));
+          const candidates = extractEntries(data);
+
+          // Si no hay candidatos, intentar heurística simple con arrays en la raíz
+          if (candidates.length === 0) {
+            const arr = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : (Array.isArray(data.prices) ? data.prices : []));
+            for (const it of arr) {
+              const tstr = it.datetime || it.timestamp || it.from || it.date || it.start;
+              const t = tstr ? Date.parse(tstr) : (typeof it.time === 'number' ? it.time : NaN);
+              const v = (typeof it.price === 'number') ? it.price : (typeof it.value === 'number' ? it.value : (typeof it.amount === 'number' ? it.amount : (typeof it.valor === 'number' ? it.valor : NaN)));
+              if (!Number.isNaN(t) && !Number.isNaN(v)) candidates.push({ t, v, raw: it });
+            }
+          }
 
           // Buscar la entrada que cubre la hora actual (t <= now < t+1h)
           let found = candidates.find(c => (now >= c.t && now < (c.t + 3600000)));
