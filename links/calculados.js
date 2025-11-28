@@ -115,14 +115,53 @@ const calculadosCategory = {
       if (hour < 15) return "📝 Haciendo como que trabajo";
       return "💀 Defunción laboral";
     }},
-    { desc: "Segundos para el finde", fn: () => {
-      const now = new Date();
-      const day = now.getDay();
-      const weekendStart = new Date(now);
-      weekendStart.setDate(now.getDate() + ((6 - day + 7) % 7));
-      weekendStart.setHours(0,0,0,0);
-      return Math.floor((weekendStart - now) / 1000) + "s";
-    }}
+    { desc: "Segundos para el finde", fn: (() => {
+
+        let installed = false;   // evitar instalar el timer más de una vez
+
+        function calculate() {
+          const now = new Date();
+          const day = now.getDay();
+          const weekendStart = new Date(now);
+          weekendStart.setDate(now.getDate() + ((6 - day + 7) % 7));
+          weekendStart.setHours(0,0,0,0);
+          return Math.floor((weekendStart - now) / 1000) + "s";
+        }
+
+        // Esto es lo que tu app llama
+        return function() {
+
+          // Instalación del auto-update solo la primera vez
+          if (!installed) {
+            installed = true;
+
+            // Esperamos al siguiente tick para asegurar que el DOM ya está pintado
+            setTimeout(() => {
+              const allLis = document.querySelectorAll("li");
+              let targetSpan = null;
+
+              allLis.forEach(li => {
+                if (li.textContent.trim().startsWith("Segundos para el finde")) {
+                  targetSpan = li.querySelector(".fn-result");
+                }
+              });
+
+              if (!targetSpan) return;
+
+              // Iniciar actualizador permanente
+              setInterval(() => {
+                targetSpan.textContent = calculate();
+              }, 1000);
+
+            }, 0);
+          }
+
+          // Valor inicial
+          return calculate();
+        };
+      })()
+    }
+
 
   ]
 };
