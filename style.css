@@ -125,5 +125,5 @@ li {
 }
 .nx-toast-enter { opacity: 1; transform: translateY(0) scale(1); }
 .nx-toast-leave { opacity: 0; transform: translateY(-6px) scale(0.995); }
-.nx-toast-title { font-weight: bold; margin-bottom: 4px; font-size: 13px; }
+.nx-toast-title { font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #91ff00; }
 .nx-toast-message { font-size: 13px; color: #cfd6d8; }
