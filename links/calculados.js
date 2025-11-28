@@ -67,7 +67,63 @@ const calculadosCategory = {
       const yearStart = new Date(now.getFullYear(), 0, 0);
       const dayOfYear = Math.floor((now - yearStart) / 86400000);
       return tips[dayOfYear % tips.length];
+    }},
+    { desc: "Distancia Sol-Tierra", fn: () => {
+      const now = new Date();
+      const day = (now - new Date(now.getFullYear(),0,0)) / 86400000;
+      const eccentricity = 0.0167;
+      const mean = 149597870; // km
+      const dist = mean * (1 - eccentricity * Math.cos(2 * Math.PI * day / 365));
+      return dist.toFixed(0) + " km";
+    }},
+    { desc: "Hash del día", fn: () => {
+      const s = new Date().toISOString().slice(0,10);
+      let h = 0;
+      for (let c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+      return h.toString(16);
+    }},
+    { desc: "Nivel de ‘lunes’", fn: () => {
+      const dow = new Date().getDay();
+      const levels = ["😴", "☹️", "😕", "🙂", "😊", "😎", "🎉"];
+      return levels[dow] + " (" + ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"][dow] + ")";
+    }},
+    { desc: "Excusa del día", fn: () => {
+      const causes = ["el servidor", "Mercurio retrógrado", "mi gato", "un bug cuántico", "la ley de Murphy"];
+      const actions = ["rompió", "reinició", "desconfiguró", "boicoteó", "apagó"];
+      const objects = ["todo", "la conexión", "el sistema", "el internet", "mi motivación"];
+
+      // Crear una semilla diaria (YYYYMMDD → número)
+      const seedStr = new Date().toISOString().slice(0,10).replace(/-/g,'');
+      let seed = Number(seedStr);
+
+      // Pequeño PRNG determinístico *local*
+      const rng = () => {
+        seed = (seed * 9301 + 49297) % 233280;
+        return seed / 233280;
+      };
+
+      const cause  = causes[Math.floor(rng() * causes.length)];
+      const action = actions[Math.floor(rng() * actions.length)];
+      const object = objects[Math.floor(rng() * objects.length)];
+
+      return `${cause} ${action} ${object}`;
+    }},
+    { desc: "Productividad", fn: () => {
+      const hour = new Date().getHours();
+      if (hour < 9) return "🛌 Esperando empezar";
+      if (hour < 12) return "☕ Preparando la productividad";
+      if (hour < 17) return "📝 Haciendo como que trabajo";
+      return "💀 Defunción laboral";
+    }},
+    { desc: "Segundos para el finde", fn: () => {
+      const now = new Date();
+      const day = now.getDay();
+      const weekendStart = new Date(now);
+      weekendStart.setDate(now.getDate() + ((6 - day + 7) % 7));
+      weekendStart.setHours(0,0,0,0);
+      return Math.floor((weekendStart - now) / 1000) + "s";
     }}
+
   ]
 };
 
