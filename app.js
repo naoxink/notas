@@ -76,6 +76,12 @@ const LINKS = {
   },
 };
 
+// Publicar/mezclar LINKS en `window` de forma segura para que archivos
+// separados (como `links_calculados.js`) puedan añadir categorías.
+if (typeof window !== 'undefined') {
+  window.LINKS = Object.assign(window.LINKS || {}, LINKS);
+}
+
 // Helper para crear elementos con atributos y children
 function el(tag, attrs = {}, ...children) {
   const e = document.createElement(tag);
@@ -259,6 +265,18 @@ document.addEventListener('DOMContentLoaded', renderAll);
 // Exportar LINKS si se usa en otros módulos (opcional)
 if (typeof module !== 'undefined') {
   module.exports = { LINKS };
+}
+
+// Exponer API para que otros archivos puedan registrar/añadir enlaces
+// de forma centralizada y forzar re-render cuando sea necesario.
+if (typeof window !== 'undefined') {
+  window.renderAll = renderAll;
+  window.registerLinks = function(newLinks) {
+    window.LINKS = Object.assign(window.LINKS || {}, newLinks || {});
+    if (typeof window.renderAll === 'function') window.renderAll();
+  };
+  // helper para obtener enlaces desde consola o extensiones
+  window.getLinks = function() { return window.LINKS; };
 }
 
 function darkenColor(color, percent) {
