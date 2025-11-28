@@ -1,5 +1,5 @@
 // Datos de enlaces organizados por categoría
-const LINKS = {
+let LINKS = {
   github: {
     label: "Github",
     links: [
@@ -80,6 +80,8 @@ const LINKS = {
 // separados (como `links_calculados.js`) puedan añadir categorías.
 if (typeof window !== 'undefined') {
   window.LINKS = Object.assign(window.LINKS || {}, LINKS);
+  // Mantener la referencia local `LINKS` sincronizada con `window.LINKS`
+  LINKS = window.LINKS;
 }
 
 // Helper para crear elementos con atributos y children
@@ -273,6 +275,8 @@ if (typeof window !== 'undefined') {
   window.renderAll = renderAll;
   window.registerLinks = function(newLinks) {
     window.LINKS = Object.assign(window.LINKS || {}, newLinks || {});
+    // mantener la variable local en sync para que el render use la versión actual
+    LINKS = window.LINKS;
     if (typeof window.renderAll === 'function') window.renderAll();
   };
   // helper para obtener enlaces desde consola o extensiones
