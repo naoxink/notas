@@ -67,90 +67,31 @@ const tonteriasVariasCategory = {
     }},
     { desc: "Hash del día", fn: () => {
       const s = new Date().toISOString().slice(0,10);
-      let h = 0;
-      for (let c of s) h = (h * 167 + c.charCodeAt(0)) >>> 0;
+      let h1 = 0x9e3779b97f4a7c15n;   // semillas grandes (BigInt)
+      let h2 = 0x6a09e667f3bcc908n;
+
+      for (let c of s) {
+        const x = BigInt(c.charCodeAt(0));
+        h1 = (h1 ^ x) * 0xbf58476d1ce4e5b9n;
+        h2 = (h2 + x) * 0x94d049bb133111ebn;
+      }
+
+      let h = (h1 ^ h2) & ((1n << 64n) - 1n); // 64 bits
 
       const chars = [];
-      for (let i = 33; i <= 126; i++) chars.push(String.fromCharCode(i)); // ASCII visible
+      for (let i = 33; i <= 126; i++) chars.push(String.fromCharCode(i));
 
       let out = "";
-      let x = h;
+      const base = BigInt(chars.length);
 
       for (let i = 0; i < 10; i++) {
-        out += chars[x % chars.length];
-        x = Math.floor(x / chars.length);
+        out += chars[Number(h % base)];
+        h /= base;
       }
 
       return out;
-    }},
-    { desc: "Excusa del día", fn: () => {
-      const causes = ["el servidor", "Mercurio retrógrado", "mi gato", "un bug cuántico", "la ley de Murphy"];
-      const actions = ["rompió", "reinició", "desconfiguró", "boicoteó", "apagó"];
-      const objects = ["todo", "la conexión", "el sistema", "el internet", "mi motivación"];
+    }}
 
-      // Crear una semilla diaria (YYYYMMDD → número)
-      const seedStr = new Date().toISOString().slice(0,10).replace(/-/g,'');
-      let seed = Number(seedStr);
-
-      // Pequeño PRNG determinístico *local*
-      const rng = () => {
-        seed = (seed * 9301 + 49297) % 233280;
-        return seed / 233280;
-      };
-
-      const cause  = causes[Math.floor(rng() * causes.length)];
-      const action = actions[Math.floor(rng() * actions.length)];
-      const object = objects[Math.floor(rng() * objects.length)];
-
-      return `${cause} ${action} ${object}`;
-    }},
-    {
-      desc: "Segundos para el finde",
-      fn: (() => {
-
-        let installed = false;
-
-        function calculate() {
-          const now = new Date();
-          const day = now.getDay();
-          const weekendStart = new Date(now);
-          weekendStart.setDate(now.getDate() + ((6 - day + 7) % 7));
-          weekendStart.setHours(0,0,0,0);
-          return Math.floor((weekendStart - now) / 1000) + "s";
-        }
-
-        return function() {
-
-          if (!installed) {
-            installed = true;
-
-            setTimeout(() => {
-
-              setInterval(() => {
-                // Buscar siempre el span
-                const allLis = document.querySelectorAll("li");
-                let targetSpan = null;
-
-                allLis.forEach(li => {
-                  if (li.textContent.trim().startsWith("Segundos para el finde")) {
-                    targetSpan = li.querySelector(".fn-result");
-                  }
-                });
-
-                if (targetSpan) {
-                  targetSpan.textContent = calculate();
-                }
-
-              }, 1000);
-
-            }, 0);
-          }
-
-          return calculate();
-        };
-
-      })()
-    }
   ]
 };
 
