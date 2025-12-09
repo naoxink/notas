@@ -21,6 +21,39 @@ const tonteriasVariasCategory = {
       const direction = Math.sin(phaseAngle) > 0 ? '▲' : '▼';
       return illuminated.toFixed(1) + '% ' + direction;
     }},
+    {
+      desc: "Siguiente luna llena", fn: () => {
+        // Duración media del ciclo sinódico lunar
+        const N = 29.530588853;
+
+        // Luna llena de referencia (NASA)
+        const ref = new Date(Date.UTC(2017, 0, 12, 11, 34));
+
+        const now = new Date();
+        const diffDays = (now - ref) / 86400000;
+        const cycles = diffDays / N;
+        const nextCycle = Math.ceil(cycles);
+
+        const nextFullMoon = new Date(ref.getTime() + nextCycle * N * 86400000);
+
+        // Formato español requerido
+        const dias = [
+          "domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"
+        ];
+
+        const meses = [
+          "enero", "febrero", "marzo", "abril", "mayo", "junio",
+          "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+        ];
+
+        const d = nextFullMoon;
+        const diaSemana = dias[d.getUTCDay()];
+        const diaMes = d.getUTCDate();
+        const mes = meses[d.getUTCMonth()];
+
+        return `${diaSemana} ${diaMes} de ${mes}`;
+      }
+    },
     { desc: "Consejo del día", fn: () => {
       const tips = [
         'Bebe agua: intenta beber al menos 8 vasos hoy.',
@@ -91,7 +124,6 @@ const tonteriasVariasCategory = {
 
       return out;
     }}
-
   ]
 };
 
