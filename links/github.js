@@ -2,6 +2,7 @@
 const github = {
   label: "Github",
   links: [
+    { link: "http://portfolio-naoxink.vercel.app/", desc: "Portfolio" },
     { link: "https://descuentos-nxk.vercel.app/", desc: "Calculadora de descuentos a precios" },
     { link: "https://naoxink.github.io/tengoenbr/", desc: "Listado de películas de mi colección en blu-ray" },
     { link: "https://naoxink.github.io/mibiblioteca/", desc: "Listado de libros personales" },
