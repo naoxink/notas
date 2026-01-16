@@ -8,6 +8,7 @@ const multimedia_online = {
     { link: "https://anhqv.eu/visualizador/", desc: "Aquí no hay quien viva", tags: [ { color: '#8dcfd8', name: 'Serie online' } ] },
     { link: "https://cuatro.comunidadmontepinar.eu/aida/", desc: "Aída", tags: [ { color: '#8dcfd8', name: 'Serie online' } ] },
     { link: "https://www.tokyvideo.com/es/serie/cosas-de-casa/8", desc: "Cosas de casa", tags: [ { color: '#8dcfd8', name: 'Serie online' } ] },
+    { link: "https://www.cineby.gd/", desc: "Cineby", tags: [ { color: '#bc73d4', name: 'Tor necesario' } ] },
     { link: "https://fmhy.net/", desc: "freemediaheckyeah: índice de utilidades y sitios" },
     { link: "https://pluto.tv/", desc: "PlutoTV" }
   ]
