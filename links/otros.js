@@ -4,7 +4,8 @@ const otros = {
   links: [
     { link: "https://www.liveatc.net/", desc: "LiveATC (Air Traffic Comms)" },
     { link: "https://pixlr.com/es/editor/", desc: '"Photoshop" online (Pixlr)' },
-    { link: "https://www.croxyproxy.com/_es/", desc: "CroxyProxy (proxy web)" }
+    { link: "https://www.croxyproxy.com/_es/", desc: "CroxyProxy (proxy web)" },
+    { link: "https://www.meteoalarm.org/en/live/", desc: "Alertas meteorológicas Europa" }
   ]
 };
 
