@@ -9,18 +9,6 @@ const tonteriasVariasCategory = {
       const percent = ((now - start) / (end - start)) * 100;
       return percent.toFixed(2) + '%';
     }},
-    { desc: "Luna iluminada", fn: () => {
-      const now = new Date();
-      const synodic = 29.530588853;
-      const knownNewMoon = Date.UTC(200, 0, 6, 18, 14, 0);
-      const diffDays = (now.getTime() - knownNewMoon) / 86400000;
-      let age = diffDays % synodic;
-      if (age < 0) age += synodic;
-      const phaseAngle = 2 * Math.PI * age / synodic;
-      const illuminated = (1 - Math.cos(phaseAngle)) / 2 * 100;
-      const direction = Math.sin(phaseAngle) > 0 ? '▲' : '▼';
-      return illuminated.toFixed(1) + '% ' + direction;
-    }},
     {
       desc: "Siguiente luna llena", fn: () => {
         // Duración media del ciclo sinódico lunar
