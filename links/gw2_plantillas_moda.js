@@ -2,9 +2,9 @@
 const guild_wars_2_moda = {
   label: "Guild Wars 2: moda",
   links: [
-    { desc: 'Kralkatorrik Thief', fn: () => '[&D1gD3RkBAAEAAQABAIgvaQZpBlcFdQAnL1cFaQZpBkMApjMZAGkGVwV1AGkAVwVpBnUAAQCkL2kGaQZXBXUAqi+AAWkGVwV1AEwAlADGAcYBxgGVMAAAvSlKEmIOAAD/fg==]' },
-    { desc: 'Guardián legendario', fn: () => '[&D1YDbitxBhEGwwFxBvUbGQAPAN8EAQDgGxkADwABAAEAwxvfBA8ADwABAMQbGQAPAAEAAQDdG1UC9QQCBg8AthtVAvUEAgYPAEwAcQbRBUMAQwBLEQsYqxUAAEISQxL9fg==]' },
-    { desc: 'Guerrera de fuego', fn: () => '[&D1YDvyQBAAEAAQABAG0eTABdBV0FAQC1IEwAXQVMAF8FjyBdBU0ATQBfBV0eTAABAF0FAQBYHkwA0QUBAAEAkCBMAEwAAQBfBSQAOgZ9BsoClAB9Ep0SJCMkI28rAADdfg==]' }
+    { desc: 'Kralkatorrik Thief', click2copy: '[&D1gD3RkBAAEAAQABAIgvaQZpBlcFdQAnL1cFaQZpBkMApjMZAGkGVwV1AGkAVwVpBnUAAQCkL2kGaQZXBXUAqi+AAWkGVwV1AEwAlADGAcYBxgGVMAAAvSlKEmIOAAD/fg==]' },
+    { desc: 'Guardián legendario', click2copy: '[&D1YDbitxBhEGwwFxBvUbGQAPAN8EAQDgGxkADwABAAEAwxvfBA8ADwABAMQbGQAPAAEAAQDdG1UC9QQCBg8AthtVAvUEAgYPAEwAcQbRBUMAQwBLEQsYqxUAAEISQxL9fg==]' },
+    { desc: 'Guerrera de fuego', click2copy: '[&D1YDvyQBAAEAAQABAG0eTABdBV0FAQC1IEwAXQVMAF8FjyBdBU0ATQBfBV0eTAABAF0FAQBYHkwA0QUBAAEAkCBMAEwAAQBfBSQAOgZ9BsoClAB9Ep0SJCMkI28rAADdfg==]' }
   ]
 };
 

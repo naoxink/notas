@@ -232,6 +232,10 @@ function renderSections(container, data) {
         const resultSpan = el('span', { class: 'fn-result' }, String(fnResult));
         li.appendChild(resultSpan);
 
+      } else if (item.click2copy) {
+        const span = crearSpanCopiable(item.click2copy, item.desc)
+        li.appendChild(span)
+
       // Fallback: sin link ni fn, mostrar la descripción si existe
       } else {
         if (item.desc) {
@@ -381,3 +385,32 @@ function darkenColor(color, percent) {
   return color; // Si el color no es hexadecimal, devolverlo tal cual
 }
 
+/**
+ * Crea un elemento span que copia su contenido al portapapeles al hacer clic.
+ * @param {string} texto - El texto que se mostrará y se copiará.
+ * @returns {HTMLElement} El elemento span configurado.
+ */
+function crearSpanCopiable(texto, placeholder) {
+    // 1. Creamos el elemento span
+    const elSpan = document.createElement('span');
+    elSpan.classList.add('fn-result')
+    elSpan.textContent = placeholder;
+    elSpan.style.cursor = 'pointer'
+
+    // 3. Añadimos el listener del evento click
+    elSpan.addEventListener('click', () => {
+      console.log('ey')
+        navigator.clipboard.writeText(texto)
+            .then(() => {
+                showToast({
+                  title: '✅ ¡Éxito!',
+                  message: `${texto.substring(0, 35) + (texto.length > 35 ? '...' : '')} se ha copiado al portapapeles.`
+                })
+            })
+            .catch(err => {
+                console.error('❌ Error al intentar copiar: ', err);
+            });
+    });
+
+    return elSpan;
+}
