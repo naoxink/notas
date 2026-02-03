@@ -233,7 +233,10 @@ function renderSections(container, data) {
         li.appendChild(resultSpan);
 
       } else if (item.click2copy) {
-        const span = crearSpanCopiable(item.click2copy, item.desc)
+        if (item.desc) {
+          li.appendChild(document.createTextNode(item.desc + ': '));
+        }
+        const span = crearSpanCopiable(item.click2copy, '[Copiar código al portapapeles]')
         li.appendChild(span)
 
       // Fallback: sin link ni fn, mostrar la descripción si existe
@@ -399,18 +402,21 @@ function crearSpanCopiable(texto, placeholder) {
 
     // 3. Añadimos el listener del evento click
     elSpan.addEventListener('click', () => {
-      console.log('ey')
-        navigator.clipboard.writeText(texto)
-            .then(() => {
-                showToast({
-                  title: '✅ ¡Éxito!',
-                  message: `${texto.substring(0, 35) + (texto.length > 35 ? '...' : '')} se ha copiado al portapapeles.`
-                })
-            })
-            .catch(err => {
-                console.error('❌ Error al intentar copiar: ', err);
-            });
+      copiar(texto)
     });
 
     return elSpan;
+}
+
+function copiar(texto) {
+    navigator.clipboard.writeText(texto)
+        .then(() => {
+            showToast({
+              title: '✅ ¡Éxito!',
+              message: `${texto.substring(0, 35) + (texto.length > 35 ? '...' : '')} se ha copiado al portapapeles.`
+            })
+        })
+        .catch(err => {
+            console.error('❌ Error al intentar copiar: ', err);
+        });
 }
