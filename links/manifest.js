@@ -8,6 +8,7 @@ window.LINKS_SOURCES = [
   'links/griego.js',
   'links/multimedia_online.js',
   'links/guild_wars_2.js',
+  'links/gw2_plantillas_moda.js',
   'links/ia.js',
   'links/otros.js',
   'links/tonterias_varias.js',
