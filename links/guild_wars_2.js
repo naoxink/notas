@@ -6,7 +6,8 @@ const guild_wars_2 = {
     { link: "https://gw2efficiency.com/", desc: "GW2 Efficiency" },
     { link: "https://wiki.guildwars2.com/wiki/Event_timers", desc: "Event Timer" },
     { link: "https://portfolio-naoxink.vercel.app/posts/guild-wars-ost-collection", desc: "Compilación OSTs" },
-    { link: "https://es-forum.guildwars2.com/", desc: "Foro oficial" }
+    { link: "https://es-forum.guildwars2.com/", desc: "Foro oficial" },
+    { link: "https://wiki.guildwars2.com/wiki/Endless_Summer", desc: "[wiki] Verano infinito (anillo legendario nuevo)"}
   ]
 };
 
