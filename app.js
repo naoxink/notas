@@ -114,10 +114,11 @@ function showToast(payload) {
 
 if (typeof window !== 'undefined') window.showToast = showToast;
 
-// Estado de búsqueda/filtrado
+// Estado de búsqueda/filtrado inicializado desde la URL si existe
+const urlParams = new URLSearchParams(window.location.search);
 const state = {
-  query: '',
-  category: 'all'
+  query: urlParams.get('q') || '',
+  category: urlParams.get('cat') || 'all' // Lee el parámetro 'cat'
 };
 
 function normalize(s) {
@@ -162,6 +163,12 @@ function renderSearchControls(container) {
   input.value = state.query;
   input.addEventListener('input', (e) => {
     state.query = e.target.value;
+    
+    const url = new URL(window.location);
+    if (state.query) url.searchParams.set('q', state.query);
+    else url.searchParams.delete('q');
+    window.history.replaceState({}, '', url);
+
     renderAll();
   });
 
@@ -173,8 +180,18 @@ function renderSearchControls(container) {
     if (state.category === key) opt.selected = true;
     select.appendChild(opt);
   }
-  select.addEventListener('change', (e) => {
+select.addEventListener('change', (e) => {
     state.category = e.target.value;
+    
+    // Actualizar la URL de forma silenciosa
+    const url = new URL(window.location);
+    if (state.category === 'all') {
+      url.searchParams.delete('cat');
+    } else {
+      url.searchParams.set('cat', state.category);
+    }
+    window.history.replaceState({}, '', url);
+
     renderAll();
   });
 
@@ -212,6 +229,7 @@ function renderSections(container, data) {
       // Si hay un link, mostrar como antes (enlace clicable + descripción)
       if (item.link) {
         const a = el('a', { href: item.link, target: '_blank', rel: 'noopener noreferrer' }, '[>] ');
+        a.title = item.link
         li.appendChild(a);
         if (item.desc) {
           const descSpan = el('span', { class: 'desc' }, item.desc);
