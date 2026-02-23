@@ -195,7 +195,11 @@ select.addEventListener('change', (e) => {
     renderAll();
   });
 
+  const textFiltrarCategoria = el('span')
+  textFiltrarCategoria.textContent = ' Filtrar categoría: '
+
   controls.appendChild(input);
+  controls.appendChild(textFiltrarCategoria)
   controls.appendChild(select);
   searchBlock.appendChild(h2);
   searchBlock.appendChild(controls);
