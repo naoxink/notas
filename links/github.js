@@ -4,10 +4,7 @@ const github = {
   links: [
     { link: "http://portfolio-naoxink.vercel.app/", desc: "Portfolio" },
     { link: "https://descuentos-nxk.vercel.app/", desc: "Calculadora de descuentos a precios" },
-    { link: "https://naoxink.github.io/tengoenbr/", desc: "Listado de películas de mi colección en blu-ray" },
-    { link: "https://naoxink.github.io/mibiblioteca/", desc: "Listado de libros personales" },
     { link: "https://naoxink.github.io/yearpercent/", desc: "Porcentaje pasado del año actual" },
-    { link: "https://naoxink.github.io/comidas/", desc: "Notas de las comidas que voy probando por ahí" },
     { link: "https://naoxink.github.io/dinferno/", desc: "Progreso de la lectura de la Divina comedia" }
   ]
 };

@@ -3,6 +3,7 @@ window.LINKS_SOURCES = [
   'extra/streak.js',
   'extra/achievements.js',
   'links/calculados.js',
+  'links/listados.js',
   'links/github.js',
   'links/multimedia_online.js',
   'links/guild_wars_2.js',
