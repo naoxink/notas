@@ -9,7 +9,7 @@ const otros = {
     { link: "https://farmaciamalaga.iurban.es/map", desc: "Farmacias en Málaga" },
     { link: "https://www.aesan.gob.es/AECOSAN/web/seguridad_alimentaria/subseccion/otras_alertas_alimentarias.htm", desc: "AESAN: Alertas alimentarias" },
     { link: "https://www.andavac.es/calendario-vacunaciones/", desc: "Calendario de vacunaciones Andalucía" },
-    { link: "https://www.animefillerlist.com/shows/dragon-ball-z", desc: "DBZ: Listado de capitulos relleno"
+    { link: "https://www.animefillerlist.com/shows/dragon-ball-z", desc: "DBZ: Listado de capitulos relleno" }
   ]
 };
 
