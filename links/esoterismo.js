@@ -2,7 +2,8 @@
 const esoterismo = {
   label: "Esoterismo",
   links: [
-    { link: "https://www.astrolink.com/es/tarot", desc: "Significados de las cartas del tarot" }
+    { link: "https://www.astrolink.com/es/tarot", desc: "Significados de las cartas del tarot" },
+    { link: "https://www.google.es/search?q=DAEMONIBUS+TAROT&ie=UTF-8&oe=UTF-8&hl=es-es", desc: "Daemonibus tarot" }
   ]
 };
 
