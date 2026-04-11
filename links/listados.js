@@ -5,7 +5,8 @@ const listados = {
     { link: "https://naoxink.github.io/tengoenbr/", desc: "Listado de películas de mi colección en blu-ray" },
     { link: "https://naoxink.github.io/mibiblioteca/", desc: "Listado de libros personales" },
     { link: "https://naoxink.github.io/comidas/", desc: "Notas de las comidas que voy probando por ahí" },
-    { link: "https://naoxink.github.io/ChaJi/", desc: "Listado de todos los tés que voy tomando y tengo" }
+    { link: "https://naoxink.github.io/ChaJi/", desc: "Listado de todos los tés que voy tomando y tengo" },
+    { link: "https://naoxink.github.io/tarotdailycard/", desc: "Histórico de mi carta del tarot diaria" }
   ]
 };
 
