@@ -3,7 +3,7 @@ const multimedia_online = {
   label: "Multimedia online",
   links: [
     { link: "https://capitulosos.blogspot.com/p/series-gratis-online.html", desc: "Capitulosos" },
-    { link: "https://fromserie.blogspot.com/", desc: "Serie From (origen) online" },
+    { link: "https://fromserie.blogspot.com/", desc: "From (origen)", tags: [ { color: '#8dcfd8', name: 'Serie online' } ] },
     { link: "https://verdragonball.online/", desc: "Dragon Ball", tags: [ { color: '#8dcfd8', name: 'Serie online' } ] },
     { link: "https://cuatro.comunidadmontepinar.eu/", desc: "La que se avecina", tags: [ { color: '#8dcfd8', name: 'Serie online' } ] },
     { link: "https://anhqv.eu/visualizador/", desc: "Aquí no hay quien viva", tags: [ { color: '#8dcfd8', name: 'Serie online' } ] },
