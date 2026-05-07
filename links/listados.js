@@ -3,6 +3,7 @@ const listados = {
   label: "Listados personales",
   links: [
     { link: "https://naoxink.github.io/tengoenbr/", desc: "Listado de películas de mi colección en blu-ray" },
+    { link: "https://naoxink.github.io/viendo/", desc: "Listado de series que estoy viendo (y he visto)" },
     { link: "https://naoxink.github.io/mibiblioteca/", desc: "Listado de libros personales" },
     { link: "https://naoxink.github.io/comidas/", desc: "Notas de las comidas que voy probando por ahí" },
     { link: "https://naoxink.github.io/ChaJi/", desc: "Listado de todos los tés que voy tomando y tengo" },
