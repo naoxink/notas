@@ -2,14 +2,14 @@
 const ia = {
   label: "IA",
   links: [
-    { link: "https://chatgpt.com/", desc: "ChatGPT — Consulta" },
-    { link: "https://copilot.microsoft.com/", desc: "Copilot — Consulta, imágenes" },
-    { link: "https://suno.com/", desc: "Suno — Música" },
-    { link: "https://claude.ai/", desc: "Claude — Consulta" },
-    { link: "https://grok.x.ai/", desc: "Grok — Consulta" },
-    { link: "https://deepai.org/", desc: "deepAI — Consulta, imágenes, vídeos" },
-    { link: "https://www.midjourney.com/", desc: "Midjourney — Imágenes" },
-    { link: "https://pixlr.com/", desc: "Pixlr — Imágenes" }
+    { link: "https://chatgpt.com/", desc: "ChatGPT", tags: [ { name: "Consulta", color: "#b6f4ff" } ] },
+    { link: "https://copilot.microsoft.com/", desc: "Copilot", tags: [ { name: "Código", color: "#b6f4ff" } ] },
+    { link: "https://suno.com/", desc: "Suno", tags: [ { name: "Música", color: "#b6f4ff" } ] },
+    { link: "https://claude.ai/", desc: "Claude", tags: [ { name: "Consulta", color: "#b6f4ff" } ] },
+    { link: "https://grok.x.ai/", desc: "Grok", tags: [ { name: "Consulta", color: "#b6f4ff" } ] },
+    { link: "https://deepai.org/", desc: "deepAI", tags: [ { name: "Imágenes, vídeos", color: "#b6f4ff" } ] },
+    { link: "https://www.midjourney.com/", desc: "Midjourney", tags: [ { name: "Imágenes", color: "#b6f4ff" } ] },
+    { link: "https://pixlr.com/", desc: "Pixlr", tags: [ { name: "Imágenes", color: "#b6f4ff" } ] }
   ]
 };
 
