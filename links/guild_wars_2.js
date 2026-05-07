@@ -9,7 +9,10 @@ const guild_wars_2 = {
     { link: "https://wiki.guildwars2.com/wiki/Endless_Summer", desc: "[wiki] Verano infinito (anillo legendario nuevo)"},
     { link: "https://gw2efficiency.com/", desc: "GW2 Efficiency" },
     { link: "https://gw2efficiency.com/crafting/calculator/a~0!b~0!c~0!d~1-80248;1-80131;1-80190;1-80111;1-80356;1-80399!e~0!f~1", desc: "GW2 Efficiency: Armor legendaria ligera"},
-    { link: "https://gw2efficiency.com/crafting/calculator/a~0!b~0!c~0!d~1-107022!e~0!f~1", desc: "GW2 Efficiency: Anillo legendario Verano infinito"}
+    { link: "https://gw2efficiency.com/crafting/calculator/a~0!b~0!c~0!d~1-107022!e~0!f~1", desc: "GW2 Efficiency: Anillo legendario Verano infinito" },
+    { desc: '[Skin] Kralkatorrik Thief', click2copy: '[&D1gD3RkBAAEAAQABAIgvaQZpBlcFdQAnL1cFaQZpBkMApjMZAGkGVwV1AGkAVwVpBnUAAQCkL2kGaQZXBXUAqi+AAWkGVwV1AEwAlADGAcYBxgGVMAAAvSlKEmIOAAD/fg==]' },
+    { desc: '[Skin] Guardián legendario', click2copy: '[&D1YDbitxBhEGwwFxBvUbGQAPAN8EAQDgGxkADwABAAEAwxvfBA8ADwABAMQbGQAPAAEAAQDdG1UC9QQCBg8AthtVAvUEAgYPAEwAcQbRBUMAQwBLEQsYqxUAAEISQxL9fg==]' },
+    { desc: '[Skin] Guerrera de fuego', click2copy: '[&D1YDvyQBAAEAAQABAG0eTABdBV0FAQC1IEwAXQVMAF8FjyBdBU0ATQBfBV0eTAABAF0FAQBYHkwA0QUBAAEAkCBMAEwAAQBfBSQAOgZ9BsoClAB9Ep0SJCMkI28rAADdfg==]' }
   ]
 };
 
