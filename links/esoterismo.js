@@ -3,7 +3,8 @@ const esoterismo = {
   label: "Esoterismo",
   links: [
     { link: "https://www.astrolink.com/es/tarot", desc: "Significados de las cartas del tarot" },
-    { link: "https://www.google.es/search?q=DAEMONIBUS+TAROT&ie=UTF-8&oe=UTF-8&hl=es-es", desc: "Daemonibus tarot" },
+    { link: "https://labyrinthos.co/", desc: "Labyrinthos app, significados y tiradas de tarot", tags: [ { name: 'Inglés', color: '#dd9c3a' } ] },
+    { desc: "Tarot Daemonibus", link: "https://www.google.es/search?q=DAEMONIBUS+TAROT&ie=UTF-8&oe=UTF-8&hl=es-es" },
     { desc: "Tarot Thoth Alister Crowley", link: "https://www.google.es/search?client=safari&hs=KbzU&sca_esv=891cb67090587ec1&hl=es-es&udm=2&q=tarot+crowley+thoth&spell=1&sa=X&ved=2ahUKEwj4j9T_x9mTAxXQ9gIHHS2JF8EQBSgAegQICBAB&biw=375&bih=635&dpr=3" },
     { desc: "Tarot Vox Arcana", link: "https://www.google.es/search?q=tarot+vox+arcana&client=safari&hs=9DK&sca_esv=a6fe58f4c6c3d920&hl=es-es&udm=2&biw=375&bih=635&ei=cK_TaYykOOGUi-gPmNqf6Ak&oq=tarot+vox+arcana&gs_lp=EhJtb2JpbGUtZ3dzLXdpei1pbWciEHRhcm90IHZveCBhcmNhbmEyBRAAGIAEMgYQABgFGB4yBhAAGAgYHjIGEAAYCBgeMgYQABgIGB5IjBVQqwlYlxJwAHgAkAEBmAF1oAGHBaoBAzcuMbgBA8gBAPgBAZgCB6ACpwTCAggQABiABBiiBMICBBAhGBXCAgQQABgemAMAiAYBkgcDNi4xoAfhC7IHAzYuMbgHpwTCBwUxLjIuNMgHEoAIAA&sclient=mobile-gws-wiz-img" },
     { desc: "Carta del día", fn() {
