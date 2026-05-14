@@ -127,3 +127,33 @@ li {
 .nx-toast-leave { opacity: 0; transform: translateY(-6px) scale(0.995); }
 .nx-toast-title { font-weight: bold; margin-bottom: 4px; font-size: 13px; color: #91ff00; }
 .nx-toast-message { font-size: 13px; color: #cfd6d8; }
+
+
+#scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  padding: 5px;
+  font-size: 18px;
+  border: none;
+  
+  background: #333;
+  color: yellowgreen;
+  cursor: pointer;
+  
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+    color: #333;
+    background-color: yellowgreen;
+}
+
+#scrollTopBtn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}

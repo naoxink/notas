@@ -442,3 +442,34 @@ function copiar(texto) {
             console.error('❌ Error al intentar copiar: ', err);
         });
 }
+
+function initScrollToTopButton() {
+  const btn = document.getElementById("scrollTopBtn");
+
+  if (!btn) return;
+
+  function toggleVisibility() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+    if (scrollTop > docHeight * 0.25) {
+      btn.classList.add("visible");
+    } else {
+      btn.classList.remove("visible");
+    }
+  }
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  // Listeners
+  window.addEventListener("scroll", toggleVisibility);
+  btn.addEventListener("click", scrollToTop);
+}
+
+// Inicializar
+document.addEventListener("DOMContentLoaded", initScrollToTopButton);
