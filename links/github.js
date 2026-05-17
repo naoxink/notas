@@ -2,6 +2,7 @@
 const github = {
   label: "Github",
   links: [
+    { link: "https://naoxink.github.io/zentab", desc: "Dashboard con varias utilidades" },
     { link: "https://naoxink.github.io/foldergallery", desc: "Galería de imágenes/vídeos de carpeta local" },
     { link: "http://portfolio-naoxink.vercel.app", desc: "Portfolio" },
     { link: "https://descuentos-nxk.vercel.app", desc: "Calculadora de descuentos a precios" },
