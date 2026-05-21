@@ -7,6 +7,7 @@ window.LINKS_SOURCES = [
   'links/github.js',
   'links/multimedia_online.js',
   'links/esoterismo.js',
+  'links/informacion.js',
   'links/otros.js',
   'links/te.js',
   'links/guild_wars_2.js',
