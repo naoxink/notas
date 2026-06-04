@@ -2,14 +2,15 @@
 const ia = {
   label: "IA",
   links: [
-    { link: "https://chatgpt.com/", desc: "ChatGPT", tags: [ { name: "Consulta", color: "#b6f4ff" } ] },
-    { link: "https://copilot.microsoft.com/", desc: "Copilot", tags: [ { name: "Código", color: "#b6f4ff" } ] },
-    { link: "https://suno.com/", desc: "Suno", tags: [ { name: "Música", color: "#b6f4ff" } ] },
-    { link: "https://claude.ai/", desc: "Claude", tags: [ { name: "Consulta", color: "#b6f4ff" } ] },
-    { link: "https://grok.x.ai/", desc: "Grok", tags: [ { name: "Consulta", color: "#b6f4ff" } ] },
-    { link: "https://deepai.org/", desc: "deepAI", tags: [ { name: "Imágenes, vídeos", color: "#b6f4ff" } ] },
-    { link: "https://www.midjourney.com/", desc: "Midjourney", tags: [ { name: "Imágenes", color: "#b6f4ff" } ] },
-    { link: "https://pixlr.com/", desc: "Pixlr", tags: [ { name: "Imágenes", color: "#b6f4ff" } ] }
+    { link: "https://gemini.google.com/", desc: "Gemini"},
+    { link: "https://chatgpt.com/", desc: "ChatGPT" },
+    { link: "https://copilot.microsoft.com/", desc: "Copilot" },
+    { link: "https://suno.com/", desc: "Suno" },
+    { link: "https://claude.ai/", desc: "Claude" },
+    { link: "https://grok.x.ai/", desc: "Grok" },
+    { link: "https://deepai.org/", desc: "deepAI" },
+    { link: "https://www.midjourney.com/", desc: "Midjourney" },
+    { link: "https://pixlr.com/", desc: "Pixlr" }
   ]
 };
 
