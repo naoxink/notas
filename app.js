@@ -159,7 +159,7 @@ function renderSearchControls(container) {
   const h2 = el('h2', {}, 'Índice');
   const controls = el('div', { class: 'controls' });
 
-  const input = el('input', { id: 'search-input', type: 'search', placeholder: 'Buscar (texto o URL)' });
+  const input = el('input', { id: 'search-input', type: 'search', placeholder: 'Buscar (texto o URL)', autocomplete: 'off' });
   input.value = state.query;
   input.addEventListener('input', (e) => {
     state.query = e.target.value;
@@ -174,7 +174,12 @@ function renderSearchControls(container) {
 
   const select = el('select');
   select.appendChild(el('option', { value: 'all' }, 'Todas las categorías'));
-  const orderForSelect = (typeof window !== 'undefined' && Array.isArray(window.LINKS_ORDER)) ? window.LINKS_ORDER : Object.keys(LINKS);
+  let orderForSelect = (typeof window !== 'undefined' && Array.isArray(window.LINKS_ORDER))
+    ? [ ...window.LINKS_ORDER ]
+    : [ ...Object.keys(LINKS) ];
+  orderForSelect.sort((a, b) =>
+    a.localeCompare(b, 'es', { sensitivity: 'base' })
+  )
   for (const key of orderForSelect) {
     const opt = el('option', { value: key }, LINKS[key].label || key);
     if (state.category === key) opt.selected = true;

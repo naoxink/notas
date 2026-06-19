@@ -157,3 +157,26 @@ li {
   opacity: 1;
   pointer-events: auto;
 }
+
+input[type="search"], select {
+    background-color: transparent;
+    border: 1px solid gray;
+    padding: 5px 10px;
+    font-family: monospace;
+    outline: none;
+    color: gray;
+}
+
+input[type="search"]:focus, select:focus {
+    border: 1px solid yellowgreen;
+    color: white;
+}
+
+select option {
+    background-color: #333;
+    color: white;
+}
+
+select option:checked {
+    background-color: yellowgreen;
+}
