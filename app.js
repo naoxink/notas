@@ -207,7 +207,7 @@ select.addEventListener('change', (e) => {
 }
 
 function renderIndex(container, data) {
-  const idx = el('div', { class: 'index' });
+  /* const idx = el('div', { class: 'index' });
   for (const key of Object.keys(data)) {
     const cat = data[key];
     const a = el('a', { href: `#${key}` }, cat.label || key);
@@ -218,7 +218,7 @@ function renderIndex(container, data) {
         idx.appendChild(el('span', { class: 'sep' }, ' | '));
     }
   }
-  container.appendChild(idx);
+  container.appendChild(idx); */
 }
 
 function renderSections(container, data) {
