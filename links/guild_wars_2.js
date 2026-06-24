@@ -2,6 +2,7 @@
 const guild_wars_2 = {
   label: "Guild Wars 2",
   links: [
+    { link: "https://gw2.app/", desc: "GW2.app" },
     { link: "https://naoxink.github.io/Mazs", desc: "Daily Fractals, strikes & events" },
     { link: "https://wiki.guildwars2.com/wiki/Event_timers", desc: "Event Timer", tags: [ { name: "Wiki", color: "#ffe59d" } ] },
     { link: "https://portfolio-naoxink.vercel.app/posts/guild-wars-ost-collection", desc: "Compilación OSTs" },
