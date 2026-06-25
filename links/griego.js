@@ -2,7 +2,7 @@
 const griego = {
   label: "Griego",
   links: [
-    { link: "https://learninggreek.net", desc: "Aprende griego" },
+    { link: "https://learninggreek.net", desc: "Aprende griego", tags: [ { name: 'Inglés', color: '#dd9c3a' } ] },
     { link: "https://live24.gr/radio/realfm.jsp", desc: "Radio Real FM" },
     { link: "https://www.ertecho.gr/", desc: "ERT Echo" },
     { link: "https://www.ertflix.gr/", desc: "ERTFlix" },
