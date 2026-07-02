@@ -200,12 +200,15 @@ select.addEventListener('change', (e) => {
     renderAll();
   });
 
-  const textFiltrarCategoria = el('span')
-  textFiltrarCategoria.textContent = ' Filtrar categoría: '
+  const textFiltrarCategoria = el('span');
+  textFiltrarCategoria.textContent = ' Filtrar categoría: ';
+
+  const categoryWrapper = el('div', { class: 'category-filter' });
+  categoryWrapper.appendChild(textFiltrarCategoria);
+  categoryWrapper.appendChild(select);
 
   controls.appendChild(input);
-  controls.appendChild(textFiltrarCategoria)
-  controls.appendChild(select);
+  controls.appendChild(categoryWrapper);
   searchBlock.appendChild(h2);
   searchBlock.appendChild(controls);
   container.appendChild(searchBlock);
