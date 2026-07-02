@@ -6,6 +6,10 @@ const calculadosCategory = {
       const now = new Date();
       const month = now.getMonth();
       const incentiveMonths = [0, 3, 6, 9];
+      // Si el mes actual es un mes de incentivo
+      if (incentiveMonths.includes(month)) {
+        return "¡Este mes!";
+      }
       const nextIncentive = incentiveMonths.find(m => m > month) ?? incentiveMonths[0];
       const nextDate = new Date(nextIncentive === 0 ? now.getFullYear() + 1 : now.getFullYear(), nextIncentive, 1);
       return nextDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
