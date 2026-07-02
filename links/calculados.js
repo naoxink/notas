@@ -16,9 +16,15 @@ const calculadosCategory = {
     }},
     { desc: "Próxima ruleta de día en", fn: () => {
       const now = new Date();
-      const dayOfWeek = now.getDay();
-      const daysUntilWednesday = (3 - dayOfWeek + 7) % 7 || 7;
-      return `${daysUntilWednesday} día${daysUntilWednesday !== 1 ? 's' : ''}`;
+      const dayOfWeek = now.getDay(); // 0 = domingo, 3 = miércoles
+
+      const daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
+
+      if (daysUntilWednesday === 0) {
+        return "¡Ruleta renovada hoy!";
+      }
+
+      return `${daysUntilWednesday} día${daysUntilWednesday !== 1 ? "s" : ""}`;
     }},
   ]
 };
