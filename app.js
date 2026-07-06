@@ -244,6 +244,10 @@ function renderSections(container, data) {
         a.title = item.link
         li.appendChild(a);
         if (item.desc) {
+          if (item.fav) {
+            const star = el('span', { class: 'star' }, '★')
+            li.appendChild(star)
+          }
           const descSpan = el('span', { class: 'desc' }, item.desc);
           li.appendChild(descSpan);
         }

@@ -9,6 +9,14 @@ a, .fn-result {
     text-decoration: none;
     font-family: monospace;
 }
+
+.star {
+    color: #91ff00;
+    font-size: 1.5rem;
+    line-height: 0;
+    margin-right: .5rem;
+}
+
 ul {
     list-style-type: none;
 }
