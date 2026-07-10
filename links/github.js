@@ -8,7 +8,8 @@ const github = {
     { link: "http://portfolio-naoxink.vercel.app", desc: "Portfolio" },
     { link: "https://descuentos-nxk.vercel.app", desc: "Calculadora de descuentos a precios" },
     { link: "https://naoxink.github.io/yearpercent", desc: "Porcentaje pasado del año actual" },
-    { link: "https://naoxink.github.io/dinferno", desc: "Progreso de la lectura de la Divina comedia" }
+    { link: "https://naoxink.github.io/dinferno", desc: "Progreso de la lectura de la Divina comedia" },
+    { link: "https://naoxink.github.io/peaktime", desc: "Progreso de tiempo hasta horas curiosas" }
   ]
 };
 
