@@ -365,6 +365,9 @@ if (typeof window !== 'undefined') {
    * - opts: { position: 'start'|'end'|'index', index: number, before: key, after: key }
    */
   window.registerLinks = function(newLinks, opts = {}) {
+    // Establecer los links favoritos primero (arriba)
+    Object.values(newLinks)[0].links.sort((a, b) => (b.fav ? 1 : 0) - (a.fav ? 1 : 0));
+
     window.LINKS = Object.assign(window.LINKS || {}, newLinks || {});
     // asegurar orden
     window.LINKS_ORDER = window.LINKS_ORDER || [];
