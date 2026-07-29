@@ -5,7 +5,8 @@ const otros = {
     { link: "https://www.liveatc.net/", desc: "LiveATC (Air Traffic Comms)" },
     { link: "https://pixlr.com/es/editor/", desc: '"Photoshop" online (Pixlr)' },
     { link: "https://www.croxyproxy.com/_es/", desc: "CroxyProxy (proxy web)" },
-    { link: "https://www.animefillerlist.com/shows/dragon-ball-z", desc: "DBZ: Listado de capitulos relleno" }
+    { link: "https://www.animefillerlist.com/shows/dragon-ball-z", desc: "DBZ: Listado de capitulos relleno" },
+    { link: "https://www.fringeconnections.com/", desc: "Fringe connections" }
   ]
 };
 
