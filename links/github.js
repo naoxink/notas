@@ -2,7 +2,8 @@
 const github = {
   label: "Github",
   links: [
-    { link: "https://naoxink.github.io/teledesayuno", desc: "Chat encriptado efímero" },
+    { link: "https://naoxink.github.io/teledesayuno", desc: "Chat encriptado efímero", fav: true },
+    { link: "https://naoxink.github.io/bitacora/", desc: "Time tracker", fav: true },
     { link: "https://naoxink.github.io/zentab", desc: "Dashboard con varias utilidades" },
     { link: "https://naoxink.github.io/foldergallery", desc: "Galería de imágenes/vídeos de carpeta local" },
     { link: "http://portfolio-naoxink.vercel.app", desc: "Portfolio" },
