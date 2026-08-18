@@ -3,7 +3,7 @@ const multimedia_online = {
   label: "Multimedia online",
   links: [
     { link: "https://fmhy.net/", desc: "freemediaheckyeah: índice de utilidades y sitios", fav: true },
-    { link: "https://capitulosos.blogspot.com/p/series-gratis-online.html", desc: "Capitulosos" },
+    { link: "https://capitulosos.blogspot.com/", desc: "Capitulosos" },
     { link: "https://series.ly/", desc: "Series.ly" },
     { link: "https://fromserie.blogspot.com/", desc: "From (origen)", tags: [ { color: '#8dcfd8', name: 'Ver online' } ] },
     { link: "https://verdragonball.online/", desc: "Dragon Ball", tags: [ { color: '#8dcfd8', name: 'Ver online' } ] },
