@@ -14,17 +14,26 @@ const calculadosCategory = {
       const nextDate = new Date(nextIncentive === 0 ? now.getFullYear() + 1 : now.getFullYear(), nextIncentive, 1);
       return nextDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
     }},
-    { desc: "Próxima ruleta de día en", fn: () => {
+    { desc: "Próxima ruleta de Día en", fn: () => {
+      // Fecha de inicio de un ciclo conocido (ajusta si Día cambia el calendario)
+      const cycleAnchor = new Date(2026, 7, 12); // 12 de agosto de 2026 (mes 7 = agosto, 0-indexado)
+      const cycleLengthDays = 14; // del 12 al 25 = 14 días
+
       const now = new Date();
-      const dayOfWeek = now.getDay(); // 0 = domingo, 3 = miércoles
+      // Normalizamos horas para comparar solo fechas
+      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-      const daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
+      const msPerDay = 24 * 60 * 60 * 1000;
+      const daysSinceAnchor = Math.floor((startOfToday - cycleAnchor) / msPerDay);
 
-      if (daysUntilWednesday === 0) {
+      // Módulo que funciona también con números negativos (fechas anteriores al ancla)
+      const daysIntoCycle = ((daysSinceAnchor % cycleLengthDays) + cycleLengthDays) % cycleLengthDays;
+      const daysUntilNextCycle = (cycleLengthDays - daysIntoCycle) % cycleLengthDays;
+
+      if (daysUntilNextCycle === 0) {
         return "¡Ruleta renovada hoy!";
       }
-
-      return `${daysUntilWednesday} día${daysUntilWednesday !== 1 ? "s" : ""}`;
+      return `${daysUntilNextCycle} día${daysUntilNextCycle !== 1 ? "s" : ""}`;
     }},
   ]
 };
