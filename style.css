@@ -45,6 +45,19 @@ li {
   margin-left: 8px;
 }
 
+.quote {
+    display: inline-block;
+    font-style: italic;
+    color: #cfd6d8;
+    border-left: 3px solid #91ff00;
+    padding-left: 10px;
+}
+
+.quote-author {
+    color: #9aa0a6;
+    font-size: 0.9em;
+}
+
 @media (max-width: 600px) {
     body {
         padding: 0 6% 6% 6%;

@@ -17,5 +17,6 @@ window.LINKS_SOURCES = [
   'links/musica.js',
   'links/ia.js',
   'links/tonterias_varias.js',
+  'links/citas.js',
   'links/gamificacion.js'
 ];

@@ -144,7 +144,7 @@ function filterData() {
           fnResult = '';
         }
       }
-      const hay = normalize(item.desc) + ' ' + normalize(item.link) + ' ' + normalize(fnResult);
+            const hay = normalize(item.desc) + ' ' + normalize(item.link) + ' ' + normalize(fnResult) + ' ' + normalize(item.quote);
       return hay.indexOf(q) !== -1;
     });
     if (filteredLinks.length > 0) {
@@ -266,12 +266,21 @@ function renderSections(container, data) {
         const resultSpan = el('span', { class: 'fn-result' }, String(fnResult));
         li.appendChild(resultSpan);
 
-      } else if (item.click2copy) {
+            } else if (item.click2copy) {
         if (item.desc) {
           li.appendChild(document.createTextNode(item.desc + ': '));
         }
         const span = crearSpanCopiable(item.click2copy, '[Copiar código al portapapeles]')
         li.appendChild(span)
+
+      // Si es una cita, mostrar el texto con estilo propio (sin icono clicable)
+      } else if (item.quote) {
+        const quoteSpan = el('span', { class: 'quote' }, '\u201C' + item.quote + '\u201D');
+        li.appendChild(quoteSpan);
+        if (item.desc) {
+          const authorSpan = el('span', { class: 'quote-author' }, ' \u2014 ' + item.desc);
+          li.appendChild(authorSpan);
+        }
 
       // Fallback: sin link ni fn, mostrar la descripción si existe
       } else {
