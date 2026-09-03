@@ -2,7 +2,7 @@
 const cosmere = {
   label: "Universo Cosmere · Brandon Sanderson",
   links: [
-    { link: "https://naoxink.github.io/ScadrialMatrix/", desc: "Test para descubrir tu metal personal", tags: [ { name: "GitHub", color: "#afafaf" } ], fav: true },
+    { link: "https://naoxink.github.io/ScadrialMatrix/", desc: "Test para descubrir tu metal personal", tags: [ { name: "GitHub", color: "#afafaf" } ] },
     { link: "https://cosmere.es/", desc: "Página dedicada al mundo cosmere [Español]" }
   ]
 };

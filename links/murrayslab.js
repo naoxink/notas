@@ -2,8 +2,8 @@
 const murrayslab = {
   label: "Murray's Lab",
   links: [
-    { link: "https://murrayslab.com/listascompartidas/", desc: "Listas compartidas sin registro", fav: true },
-    { link: "https://dondelacienciacalla.com/", desc: "Blog ocultismo (medio IA medio real)" },
+    { link: "https://murrayslab.com/listascompartidas/", desc: "Listas compartidas sin registro" },
+    { link: "https://dondelacienciacalla.com/", desc: "Blog ocultismo" },
     { link: "https://umamicook.com/", desc: "Recetas de cocina" }
   ]
 };
