@@ -118,7 +118,8 @@ if (typeof window !== 'undefined') window.showToast = showToast;
 const urlParams = new URLSearchParams(window.location.search);
 const state = {
   query: urlParams.get('q') || '',
-  category: urlParams.get('cat') || 'all' // Lee el parámetro 'cat'
+  category: urlParams.get('cat') || 'all', // Lee el parámetro 'cat'
+  favoritesOnly: urlParams.get('fav') === '1'
 };
 
 function normalize(s) {
@@ -129,12 +130,14 @@ function filterData() {
   const q = normalize(state.query);
   const onlyCat = state.category;
   const result = {};
+  const favoriteLinks = [];
   const order = (typeof window !== 'undefined' && Array.isArray(window.LINKS_ORDER)) ? window.LINKS_ORDER : Object.keys(LINKS);
 
   for (const key of order) {
     if (onlyCat !== 'all' && key !== onlyCat) continue;
     const cat = LINKS[key];
     const filteredLinks = cat.links.filter(item => {
+      if (state.favoritesOnly && !item.fav) return false;
       if (!q) return true;
       let fnResult = '';
       if (item && item.fn) {
@@ -147,9 +150,15 @@ function filterData() {
             const hay = normalize(item.desc) + ' ' + normalize(item.link) + ' ' + normalize(fnResult) + ' ' + normalize(item.quote);
       return hay.indexOf(q) !== -1;
     });
-    if (filteredLinks.length > 0) {
+    if (state.favoritesOnly) {
+      filteredLinks.forEach(item => favoriteLinks.push({ ...item, favoriteCategory: cat.label || key }));
+    } else if (filteredLinks.length > 0) {
       result[key] = { label: cat.label, links: filteredLinks };
     }
+  }
+
+  if (state.favoritesOnly && favoriteLinks.length > 0) {
+    result.favorites = { label: 'Favoritos', links: favoriteLinks };
   }
   return result;
 }
@@ -200,6 +209,22 @@ select.addEventListener('change', (e) => {
     renderAll();
   });
 
+  const favoritesLabel = el('label', { class: 'favorites-filter' });
+  const favoritesToggle = el('input', { type: 'checkbox', id: 'favorites-toggle' });
+  favoritesToggle.checked = state.favoritesOnly;
+  favoritesToggle.addEventListener('change', (e) => {
+    state.favoritesOnly = e.target.checked;
+
+    const url = new URL(window.location);
+    if (state.favoritesOnly) url.searchParams.set('fav', '1');
+    else url.searchParams.delete('fav');
+    window.history.replaceState({}, '', url);
+
+    renderAll();
+  });
+  favoritesLabel.appendChild(favoritesToggle);
+  favoritesLabel.appendChild(document.createTextNode('Sólo favoritos'));
+
   const textFiltrarCategoria = el('span');
   textFiltrarCategoria.textContent = ' Filtrar categoría: ';
 
@@ -209,6 +234,7 @@ select.addEventListener('change', (e) => {
 
   controls.appendChild(input);
   controls.appendChild(categoryWrapper);
+  controls.appendChild(favoritesLabel);
   searchBlock.appendChild(h2);
   searchBlock.appendChild(controls);
   container.appendChild(searchBlock);
@@ -299,6 +325,11 @@ function renderSections(container, data) {
           }, tag.name);
           li.appendChild(tagSpan);
         });
+      }
+
+      if (state.favoritesOnly && item.favoriteCategory) {
+        const categorySpan = el('span', { class: 'favorite-category' }, ` [${item.favoriteCategory}]`);
+        li.appendChild(categorySpan);
       }
 
       ul.appendChild(li);
