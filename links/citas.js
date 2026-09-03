@@ -6,6 +6,7 @@ const citas = {
   links: [
     { quote: "No esperes nada de nadie.", desc: "Gaby" },
     { quote: "Mis mierdas me las pago yo.", desc: "Gaby" },
+    { quote: "Bendita IA", desc: "Gaby" },
     { quote: "UUUhhh", desc: "Nico" }
   ]
 };
