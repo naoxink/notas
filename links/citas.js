@@ -7,7 +7,9 @@ const citas = {
     { quote: "No esperes nada de nadie.", desc: "Gaby" },
     { quote: "Mis mierdas me las pago yo.", desc: "Gaby" },
     { quote: "Bendita IA", desc: "Gaby" },
-    { quote: "UUUhhh", desc: "Nico" }
+    { quote: "UUUhhh", desc: "Nico" },
+    { quote: "When it all looks like heaven, but it feels like hell", dec: "Sleep Token" },
+    { quote: "I just want to be a better human, but it's hard when everybody's acting stupid", desc: "Falling in Reverse" }
   ]
 };
 
