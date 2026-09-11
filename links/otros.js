@@ -2,6 +2,7 @@
 const otros = {
   label: "Otros",
   links: [
+    { link: "https://www.primark.com/es-es/r/colaboraciones/cultura-pop/musica", desc: "Merch música Primark", fav: true },
     { link: "https://www.liveatc.net/", desc: "LiveATC (Air Traffic Comms)" },
     { link: "https://pixlr.com/es/editor/", desc: '"Photoshop" online (Pixlr)' },
     { link: "https://www.croxyproxy.com/_es/", desc: "CroxyProxy (proxy web)" },
