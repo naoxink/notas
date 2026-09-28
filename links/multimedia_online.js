@@ -12,7 +12,7 @@ const multimedia_online = {
     { link: "https://anhqv.eu/visualizador/", desc: "Aquí no hay quien viva", tags: [ { color: '#8dcfd8', name: 'Ver online' } ] },
     { link: "http://jonilar.eu/visualizador/aida/?episodio=1", desc: "Aída", tags: [ { color: '#8dcfd8', name: 'Ver online' } ] },
     { link: "https://www.tokyvideo.com/es/serie/cosas-de-casa/8", desc: "Cosas de casa", tags: [ { color: '#8dcfd8', name: 'Ver online' } ] },
-    { link: "https://pluto.tv/", desc: "PlutoTV" },
+    { link: "https://pluto.tv/", desc: "PlutoTV", fav: true },
     { link: "https://media-tracker.app/", desc: "Web tracker de series, películas, libros, música.." }
   ]
 };
