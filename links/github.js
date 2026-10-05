@@ -2,6 +2,7 @@
 const github = {
   label: "Github",
   links: [
+    { link: "https://naoxink.github.io/parahoy/", desc: "Gestor de tareas simple", fav: true },
     { link: "https://naoxink.github.io/microblog/", desc: "Microblog personal", fav: true },
     { link: "https://naoxink.github.io/teledesayuno", desc: "Chat encriptado efímero", fav: true },
     { link: "https://naoxink.github.io/bitacora/", desc: "Time tracker", fav: true },
