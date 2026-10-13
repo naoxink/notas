@@ -4,7 +4,6 @@ const multimedia_online = {
   links: [
     { link: "https://fmhy.net/", desc: "freemediaheckyeah: índice de utilidades y sitios", fav: true },
     { link: "https://capitulosos.blogspot.com/", desc: "Capitulosos" },
-    { link: "https://series.ly/", desc: "Series.ly", tags: [ { color: '#DD0000', name: 'CERRADA' } ] },
     { link: "https://fromserie.blogspot.com/", desc: "From (origen)", tags: [ { color: '#8dcfd8', name: 'Ver online' } ] },
     { link: "https://verdragonball.online/", desc: "Dragon Ball", tags: [ { color: '#8dcfd8', name: 'Ver online' } ] },
     { link: "https://jonilar.eu/visualizador/lqsa/?temporada=1&capitulo=1", desc: "La que se avecina", tags: [ { color: '#8dcfd8', name: 'Ver online' } ] },
