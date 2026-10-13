@@ -6,6 +6,7 @@ window.LINKS_SOURCES = [
   'links/listados.js',
   'links/github.js',
   'links/multimedia_online.js',
+  'links/bookmark_scripts.js',
   'links/esoterismo.js',
   'links/cosmere.js',
   'links/murrayslab.js',
