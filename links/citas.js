@@ -9,7 +9,8 @@ const citas = {
     { quote: "Bendita IA", desc: "Gaby" },
     { quote: "UUUhhh", desc: "Nico" },
     { quote: "When it all looks like heaven, but it feels like hell", desc: "Sleep Token" },
-    { quote: "I just want to be a better human, but it's hard when everybody's acting stupid", desc: "Falling in Reverse" }
+    { quote: "I just want to be a better human, but it's hard when everybody's acting stupid", desc: "Falling in Reverse" },
+    { quote: "King Kong ain't got shit on me", desc: "Alonzo Harris (Denzel Washington)" }
   ]
 };
 
